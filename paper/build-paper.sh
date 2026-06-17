@@ -28,6 +28,8 @@ export_doc () { # $1=docid $2=outfile $3=lang
 
 export_doc "$DOC_EN" "position-paper.en.md" "EN"
 [ -n "${DOC_IT}" ] && export_doc "$DOC_IT" "position-paper.it.md" "IT" || echo "skip IT (set full DOC_IT id)"
+# Strip Google Doc tab markers, internal notes and MIME export artifacts (keep public snapshot clean)
+python3 "$DIR/strip-internal.py" "$DIR/position-paper.en.md" "$DIR/position-paper.it.md" 2>/dev/null || true
 
 # Optional PDF if pandoc present
 if command -v pandoc >/dev/null 2>&1; then

@@ -7,7 +7,11 @@ body:
     attributes:
       value: |
         Thank you for supporting this proposal to the EDPB public consultation.
-        Fill in the fields below and click **Submit new issue**. Your adhesion will be added to `SIGNATORIES.md`.
+        Fill in the fields below and click **Submit new issue**.
+
+        **Your adhesion is public** and is reviewed manually before being added to [`SIGNATORIES.md`](../blob/main/SIGNATORIES.md), so your name appears after verification, not instantly.
+
+        Before submitting, please read the **[Privacy Notice (Article 13 GDPR)](../blob/main/PRIVACY.md)** ([versione italiana](../blob/main/PRIVACY.it.md)): the data you enter is published publicly in this repository and accessible worldwide. Legal basis is your consent; you can withdraw at any time by emailing nicola@franchetto.legal.
   - type: input
     id: name
     attributes:
@@ -46,7 +50,8 @@ body:
   - type: checkboxes
     id: consent
     attributes:
-      label: Consent
+      label: Consent (required)
+      description: "See the Privacy Notice: ../blob/main/PRIVACY.md"
       options:
-        - label: "I consent to my name and the details above being listed publicly in SIGNATORIES.md as a supporter of this proposal."
+        - label: "I have read the Privacy Notice and I consent to my name, role, organisation, country and optional comment being published publicly in this repository (in the Issue and in SIGNATORIES.md) to record my adherence to the position paper. I understand this data will be publicly accessible worldwide and that I can withdraw at any time by emailing nicola@franchetto.legal."
           required: true
