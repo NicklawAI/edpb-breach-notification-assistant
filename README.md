@@ -2,7 +2,7 @@
 
 **A response to the EDPB public consultation** on the *Template for the notification of personal data breaches under Article 33 GDPR* (v1.0, adopted 8 June 2026; consultation open until **5 August 2026**).
 
-**Authors:** Nicola Franchetto (Attorney-at-law, Franchetto Legal) and Martim Taborda Barata.
+**Authors:** Nicola Franchetto  and Martim Taborda Barata (Attorneys-at-law).
 **Licence:** the position paper and its technical artefacts are released under **CC BY 4.0** - intended for **free adoption by Data Protection Authorities and EU institutions**. The authors ask only to be credited.
 
 > **Status: consultation draft - pending co-author review.** The canonical versions are the Google Docs linked below; the Markdown snapshots in [`paper/`](paper/) are versioned here for citation. Not for formal circulation until finalised.
