@@ -44,6 +44,23 @@
     .tooltip { margin-bottom: 4px; }
     .cond { font-style: italic; }
     .multi .opt { display: flex; margin: 2px 0; }
+    /* segmented buttons (DPC/EI/CB) */
+    .segmented { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+    .seg { background: #fff; border: 1px solid var(--line); color: #16222e; padding: 8px 12px; border-radius: 8px;
+      cursor: pointer; font: inherit; margin: 0; min-height: 40px; transition: background .12s, border-color .12s; }
+    .seg:hover { border-color: var(--blue); }
+    .seg.active { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 600; }
+    .seg-label { display: block; font-weight: 500; margin: 8px 0 2px; font-size: .92rem; }
+    .help { margin: 2px 0 4px; }
+    .mitigant { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 8px 0; border-bottom: 1px solid #eef2f7; }
+    .mit-label { font-size: .9rem; }
+    .mit-tag { color: var(--accent); font-size: .78rem; }
+    .verdict.sticky { position: sticky; bottom: 8px; background: var(--card); border: 1px solid var(--line);
+      border-radius: 10px; padding: 12px 14px; box-shadow: 0 2px 10px rgba(15,39,64,.08); z-index: 5; }
+    .se-num { font-size: 1.25rem; }
+    .stepnav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 4px 0 18px; }
+    .stepcount { white-space: nowrap; }
     .verdict { margin-top: 14px; }
     .banner { padding: 9px 12px; border-radius: 7px; margin: 6px 0; font-size: 0.9rem; }
     .banner.alert { background: #fdecea; border: 1px solid #f5c2bd; color: var(--alert); }
@@ -60,6 +77,21 @@
     .records { padding-left: 18px; }
     footer { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem; }
     footer a { color: var(--blue); }
+    /* mobile: full-width controls, larger tap targets, no overflow */
+    @media (max-width: 600px) {
+      #app { padding: 16px 12px 56px; }
+      header h1 { font-size: 1.4rem; }
+      .card { padding: 16px 14px; }
+      .tabs { gap: 2px; }
+      .tab { padding: 8px 8px; font-size: .9rem; flex: 1 1 auto; text-align: center; }
+      .segmented { gap: 5px; }
+      .seg { flex: 1 1 auto; min-width: 64px; text-align: center; min-height: 44px; }
+      select, input[type=text], input[type=number], input[type=date], input[type=datetime-local], textarea { max-width: 100%; }
+      .opt { margin-right: 8px; }
+      .mitigant { flex-direction: column; align-items: stretch; }
+      .verdict.sticky { bottom: 0; border-radius: 10px 10px 0 0; }
+      .stepnav button { min-height: 44px; }
+    }
   </style>
 </head>
 <body>
