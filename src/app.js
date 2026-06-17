@@ -277,11 +277,47 @@
     return row;
   }
 
+  /* ---------- Obligations checklist ("Your obligations for this breach") ----------
+   * Derives the duties from data already entered (pre-assessment risk/high-risk +
+   * ENISA severity + notification fields). Read-only summary with article refs. */
+  function viewObligations() {
+    var p = state.pre || {}, sev = state.severity, n = state.form || {};
+    var card = el("div", { class: "card obligations" }, [
+      el("h3", {}, ["Your obligations for this breach"]),
+      el("p", { class: "muted small" }, ["Derived from your pre-assessment and ENISA severity. This is guidance; the legal qualification is the controller's, under Article 5 GDPR."]),
+    ]);
+    function item(state_, title, detail, ref) {
+      return el("div", { class: "obl " + state_ }, [
+        el("div", { class: "obl-head" }, [el("span", { class: "obl-badge " + state_ }, [state_ === "yes" ? "Required" : state_ === "no" ? "Not required" : "To assess"]),
+          el("b", {}, [" " + title]), el("span", { class: "obl-ref muted small" }, ["  " + ref])]),
+        el("div", { class: "muted small" }, [detail]),
+      ]);
+    }
+    // Art. 33 - notify the supervisory authority
+    var notifyAuth = (p.risk === "yes" || (sev && sev.notify)) ? "yes" : (p.risk === "no" ? "no" : "assess");
+    card.appendChild(item(notifyAuth, "Notify the supervisory authority",
+      notifyAuth === "yes" ? "A risk to individuals is likely - notify the authority without undue delay and, where feasible, within 72 hours of becoming aware." + (sev && sev.notify ? " (ENISA SE " + sev.se + " >= 2.)" : "")
+        : notifyAuth === "no" ? "No likely risk - notification is generally not required, but you must still record the breach (Art. 33(5))."
+        : "Assess the risk in step 1 (pre-assessment) / step 2 (ENISA).", "Art. 33"));
+    // Art. 34 - communicate to data subjects
+    var notifySubj = (p.highrisk === "yes") ? "yes" : (p.highrisk === "no" ? "no" : "assess");
+    card.appendChild(item(notifySubj, "Communicate to the affected individuals",
+      notifySubj === "yes" ? "High risk - communicate to individuals without undue delay, unless an Article 34(3) exemption applies (data rendered unintelligible e.g. encryption; subsequent measures removing the high risk; or disproportionate effort, then a public communication)."
+        : notifySubj === "no" ? "Not high risk - communication to individuals is generally not required."
+        : "Assess whether the breach is high risk (step 1).", "Art. 34"));
+    // Art. 33(5) - internal documentation (always)
+    card.appendChild(item("yes", "Document the breach internally",
+      "Record this breach in your internal register even if it is not notified, with enough detail for the authority to verify your assessment. Use the breach record below (24-month retention).", "Art. 33(5)"));
+    return card;
+  }
+
   /* ---------- Record-keeping (PIPEDA-style, localStorage) ---------- */
   function getRecords() {
     try { return JSON.parse(localStorage.getItem("ebna_records") || "[]"); } catch (e) { return []; }
   }
   function viewRecord() {
+    var container = el("div", {});
+    container.appendChild(viewObligations()); // "Your obligations for this breach" checklist on top
     var wrap = el("section", { class: "card" }, [
       el("h2", {}, [t("record.title")]),
       el("p", { class: "muted" }, [t("record.intro")]),
@@ -324,7 +360,8 @@
       wrap.appendChild(bar);
       wrap.appendChild(el("p", { class: "muted small" }, ["Aggregate export: anonymised counts by taxonomy, k-anonymity k=" + DATA.aggregate_transparency.k_default + " (small cells suppressed). No single-notification rows, no controller identity."]));
     }
-    return wrap;
+    container.appendChild(wrap);
+    return container;
   }
 
   /* ---------- Breach register export (Frank P8): rich record, CSV + XLS ---------- */

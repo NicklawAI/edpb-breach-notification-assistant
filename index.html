@@ -59,6 +59,15 @@
     .verdict.sticky { position: sticky; bottom: 8px; background: var(--card); border: 1px solid var(--line);
       border-radius: 10px; padding: 12px 14px; box-shadow: 0 2px 10px rgba(15,39,64,.08); z-index: 5; }
     .se-num { font-size: 1.25rem; }
+    .obligations { border-left: 4px solid var(--blue); }
+    .obl { padding: 10px 12px; border-radius: 8px; margin: 8px 0; border: 1px solid var(--line); }
+    .obl.yes { background: #fdecea; border-color: #f5c2bd; }
+    .obl.no { background: #eef7ee; border-color: #cfe6cf; }
+    .obl.assess { background: #fff8e1; border-color: #ffe08a; }
+    .obl-head { margin-bottom: 3px; }
+    .obl-badge { display: inline-block; font-size: .74rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; color: #fff; }
+    .obl-badge.yes { background: var(--alert); } .obl-badge.no { background: var(--accent); } .obl-badge.assess { background: var(--warn); }
+    .obl-ref { font-weight: 400; }
     .stepnav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 4px 0 18px; }
     .stepcount { white-space: nowrap; }
     .verdict { margin-top: 14px; }
