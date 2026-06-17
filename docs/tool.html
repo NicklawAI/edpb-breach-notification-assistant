@@ -402,7 +402,7 @@ window.EBNA_I18N = {"en": {"_meta": {"lang": "en", "name": "English", "status": 
     var p = state.pre || {}, sev = state.severity, n = state.form || {};
     var card = el("div", { class: "card obligations" }, [
       el("h3", {}, ["Your obligations for this breach"]),
-      el("p", { class: "muted small" }, ["Derived from your pre-assessment and ENISA severity. This is guidance; the legal qualification is the controller's, under Article 5 GDPR."]),
+      el("p", { class: "muted small" }, ["Indicative guidance generated from the data you entered."]),
     ]);
     function item(state_, title, detail, ref) {
       return el("div", { class: "obl " + state_ }, [
@@ -411,21 +411,22 @@ window.EBNA_I18N = {"en": {"_meta": {"lang": "en", "name": "English", "status": 
         el("div", { class: "muted small" }, [detail]),
       ]);
     }
-    // Art. 33 - notify the supervisory authority
-    var notifyAuth = (p.risk === "yes" || (sev && sev.notify)) ? "yes" : (p.risk === "no" ? "no" : "assess");
+    // Art. 33 - notify the supervisory authority. Trigger is the Art. 33(1) risk test,
+    // NOT the ENISA score (SE informs the assessment, it does not determine it).
+    var notifyAuth = (p.risk === "yes") ? "yes" : (p.risk === "no" ? "no" : "assess");
     card.appendChild(item(notifyAuth, "Notify the supervisory authority",
-      notifyAuth === "yes" ? "A risk to individuals is likely - notify the authority without undue delay and, where feasible, within 72 hours of becoming aware." + (sev && sev.notify ? " (ENISA SE " + sev.se + " >= 2.)" : "")
-        : notifyAuth === "no" ? "No likely risk - notification is generally not required, but you must still record the breach (Art. 33(5))."
-        : "Assess the risk in step 1 (pre-assessment) / step 2 (ENISA).", "Art. 33"));
+      notifyAuth === "yes" ? "Required unless the breach is unlikely to result in a risk to the rights and freedoms of natural persons (Art. 33(1)). Deadline: without undue delay and, where feasible, within 72 hours of becoming aware."
+        : notifyAuth === "no" ? "Not required only if the breach is unlikely to result in a risk to the rights and freedoms (Art. 33(1)). Document the reasoning (Art. 33(5))."
+        : "Assess whether the breach is likely to result in a risk. The ENISA severity score informs this assessment but does not, on its own, determine the legal obligation.", "Art. 33(1)"));
     // Art. 34 - communicate to data subjects
     var notifySubj = (p.highrisk === "yes") ? "yes" : (p.highrisk === "no" ? "no" : "assess");
     card.appendChild(item(notifySubj, "Communicate to the affected individuals",
-      notifySubj === "yes" ? "High risk - communicate to individuals without undue delay, unless an Article 34(3) exemption applies (data rendered unintelligible e.g. encryption; subsequent measures removing the high risk; or disproportionate effort, then a public communication)."
-        : notifySubj === "no" ? "Not high risk - communication to individuals is generally not required."
-        : "Assess whether the breach is high risk (step 1).", "Art. 34"));
-    // Art. 33(5) - internal documentation (always)
+      "Required only if the breach is likely to result in a HIGH risk to the rights and freedoms (Art. 34(1)), without undue delay. Exemptions (Art. 34(3)): (a) data unintelligible, e.g. strong encryption; (b) subsequent measures making the high risk no longer likely; (c) disproportionate effort -> public communication instead.", "Art. 34"));
+    // Art. 33(5) - internal documentation (always). 24 months is the recommended
+    // retention on the Canadian model (paper Part III.5), NOT a GDPR period.
     card.appendChild(item("yes", "Document the breach internally",
-      "Record this breach in your internal register even if it is not notified, with enough detail for the authority to verify your assessment. Use the breach record below (24-month retention).", "Art. 33(5)"));
+      "Always required, for ALL breaches, including those not notified (Art. 33(5)). GDPR sets no retention period; a minimum of 24 months is recommended on the Canadian model (PIPEDA, SOR/2018-64), as proposed in the position paper (Part III.5).", "Art. 33(5)"));
+    card.appendChild(el("p", { class: "muted small disclaimer-note" }, ["This is indicative guidance generated from the data you entered; it is not legal advice and does not replace the controller's case-by-case assessment under Articles 33 and 34 GDPR. The controller remains responsible for the determination and for the values declared (accountability, Art. 5(2))."]));
     return card;
   }
 
