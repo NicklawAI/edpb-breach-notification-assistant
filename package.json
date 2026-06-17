@@ -1,0 +1,12 @@
+{
+  "name": "edpb-breach-notification-assistant",
+  "version": "0.1.0",
+  "description": "Offline, privacy-by-design tool for personal data breach triage, ENISA severity scoring and EDPB notification preparation.",
+  "license": "Apache-2.0",
+  "author": "Nicola Franchetto, Martim Taborda Barata",
+  "scripts": {
+    "build": "python3 build-single.py",
+    "serve": "python3 -m http.server 8080"
+  },
+  "keywords": ["GDPR", "EDPB", "data-breach", "ENISA", "ISO27035", "privacy", "data-protection"]
+}

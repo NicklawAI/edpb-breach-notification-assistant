@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ENISA Severity of personal data breaches - methodology parameters",
+  "description": "Parameters for SE = DPC x EI + CB, per ENISA 'Recommendations for a methodology of the assessment of severity of personal data breaches' (2013).",
+  "source": "ENISA, Recommendations for a methodology of the assessment of severity of personal data breaches, v1.0, December 2013",
+  "provenance": "SE < 2 = Low is verbatim from the ENISA document text. The upper cutoffs (Medium 2-<3, High 3-<4, Very High >=4) are the standard, universally-cited ENISA bands but were not extracted verbatim from this PDF's text layer; treat as 'ENISA standard consolidated bands'.",
+  "formula": "SE = DPC * EI + CB",
+  "dpc": {
+    "label": "Data Processing Context",
+    "description": "Base score by data type, adjusted by QUALITATIVE context factors (whole-step, bounded to 1-4). Volume is an aggravating factor, NOT a fixed numeric weight.",
+    "provenance": "[verbatim Assessment Table 1] base 1/2/3/4. [verbatim] context factors (incl. volume) are qualitative; documented DPC adjustments are whole-step (e.g. 'the DPC score could be decreased by 1'). Do not apply fixed -0.25/-0.5 for volume.",
+    "base": {
+      "simple": {"score": 1, "label": "Simple data (e.g. biographical, contact)"},
+      "behavioural": {"score": 2, "label": "Behavioural data (e.g. location, traffic, preferences)"},
+      "financial": {"score": 3, "label": "Financial data"},
+      "sensitive": {"score": 4, "label": "Sensitive data (special categories, Art. 9/10 GDPR)"}
+    },
+    "adjustments": {
+      "increase": ["large volume of data per subject (qualitative aggravating)", "controller sector increases criticality", "vulnerable data subjects", "data enables profiling"],
+      "decrease": ["data publicly available", "data inaccurate or obsolete", "minimal data per subject / single subject"]
+    },
+    "note": "Adjust the base by whole steps within 1-4, with a documented justification (controller accountability, Art. 5). Volume is qualitative."
+  },
+  "ei": {
+    "label": "Ease of Identification",
+    "description": "How easily the breached data identifies a data subject. Multiplicative correction on DPC.",
+    "levels": {
+      "negligible": {"score": 0.25, "label": "Negligible - identification practically impossible"},
+      "limited": {"score": 0.5, "label": "Limited - identification difficult but possible"},
+      "significant": {"score": 0.75, "label": "Significant - identification reasonably easy"},
+      "maximum": {"score": 1.0, "label": "Maximum - data directly identifies the subject"}
+    }
+  },
+  "cb": {
+    "label": "Circumstances of the Breach",
+    "description": "Additive points. Each of confidentiality/integrity/availability is GRADUATED 0 / +0.25 / +0.5 (verbatim ENISA Annex 3); malicious intent is +0.5. The points are summed.",
+    "provenance": "[verbatim ENISA Annex 3] graduated levels per C/I/A and +0.5 malicious intent; points are added.",
+    "graduated": {
+      "confidentiality": {"label": "Loss of confidentiality", "levels": [
+        {"points": 0, "label": "No evidence of illicit processing"},
+        {"points": 0.25, "label": "Disclosure to known/limited recipients"},
+        {"points": 0.5, "label": "Publication / disclosure to unknown recipients"}
+      ]},
+      "integrity": {"label": "Loss of integrity", "levels": [
+        {"points": 0, "label": "No illicit use identified"},
+        {"points": 0.25, "label": "Data altered, recovery possible"},
+        {"points": 0.5, "label": "Data altered, no recovery possible"}
+      ]},
+      "availability": {"label": "Loss of availability", "levels": [
+        {"points": 0, "label": "Data recoverable without difficulty"},
+        {"points": 0.25, "label": "Partial / temporary unavailability"},
+        {"points": 0.5, "label": "Full unavailability, not recoverable"}
+      ]}
+    },
+    "malicious_intent": {"points": 0.5, "label": "Malicious intent", "provenance": "[verbatim +0.5]"},
+    "note": "Sum the applicable points (verbatim: 'the points obtained for each CB element are added')."
+  },
+  "bands": [
+    {"key": "low", "label": "Low", "min": null, "max": 2, "rule": "SE < 2", "meaning": "Individuals either will not be affected or may encounter a few inconveniences."},
+    {"key": "medium", "label": "Medium", "min": 2, "max": 3, "rule": "2 <= SE < 3", "meaning": "Individuals may encounter significant inconveniences, which they will be able to overcome despite some difficulties."},
+    {"key": "high", "label": "High", "min": 3, "max": 4, "rule": "3 <= SE < 4", "meaning": "Individuals may encounter significant consequences, which they should be able to overcome albeit with serious difficulties."},
+    {"key": "very_high", "label": "Very High", "min": 4, "max": null, "rule": "SE >= 4", "meaning": "Individuals may encounter significant, or even irreversible, consequences which they may not overcome."}
+  ],
+  "notification_trigger": {
+    "rule": "SE >= 2",
+    "meaning": "At Medium severity or above, activate the breach assessment / notification path (DPA notification under Art. 33; data-subject communication under Art. 34 if high risk)."
+  },
+  "mitigating_factors": {
+    "note": "Mitigating circumstances that lower the score. Per the accountability principle (Art. 5), these are EDITABLE suggestions, not an imposed black-box adjustment: each toggle moves the indicated variable in the indicated direction; the controller may override. Exact numeric steps are ENISA-default and pending confirmation against the ENISA 2013 PDF.",
+    "numbers_status": "ENISA-default, to confirm against ENISA 2013 methodology PDF",
+    "factors": [
+      {"key": "single_subject", "label": "Single data subject / very low volume", "variable": "DPC", "direction": "decrease", "hint": "Lower the DPC base by one volume step."},
+      {"key": "recipient_confirms_deletion", "label": "Wrong recipient confirms deletion of the data", "variable": "CB", "direction": "decrease", "effect": "neutralise_confidentiality", "hint": "Confidentiality loss neutralised toward 0; if recipient could not identify, EI also drops."},
+      {"key": "weak_linkage", "label": "Common name / homonymy / weak linkage", "variable": "EI", "direction": "decrease", "hint": "Choose a lower EI level (negligible/limited)."},
+      {"key": "strong_encryption", "label": "Strong encryption / data unintelligible to recipient", "variable": "CB", "direction": "decrease", "effect": "zero_confidentiality", "hint": "Confidentiality loss -> 0 (links to Art. 34(3)(a) exemption)."},
+      {"key": "pseudonymisation_no_key", "label": "Pseudonymisation with no accessible key", "variable": "EI", "direction": "decrease", "hint": "Choose a lower EI level."},
+      {"key": "professional_secrecy", "label": "Recipient bound by professional secrecy / legal confidentiality", "variable": "CB", "direction": "decrease", "hint": "Reduce confidentiality increment."},
+      {"key": "availability_restored", "label": "Availability quickly restored from backup (short outage)", "variable": "CB", "direction": "decrease", "effect": "zero_availability", "hint": "Availability loss reduced / 0."},
+      {"key": "public_low_criticality", "label": "Data already public / low criticality", "variable": "DPC", "direction": "decrease", "hint": "Lower the DPC base."}
+    ]
+  }
+}

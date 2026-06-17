@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: EDPB Breach Notification Submission API
+  version: "1.0.0"
+  description: >-
+    Open API specification for machine-to-machine (M2M) submission of a personal
+    data breach notification from a controller's management system to a
+    supervisory authority, based on the EDPB template v1.0. PROPOSAL / reference
+    specification accompanying the EDPB public consultation (until 2026-08-05);
+    not an active endpoint. Security-by-design per GDPR Art. 32.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Nicola Franchetto, Martim Taborda Barata
+    url: https://franchetto.legal
+servers:
+  - url: https://dpa.example/api/v1
+    description: Illustrative supervisory-authority ingestion endpoint (replace per DPA)
+tags:
+  - name: breach-notifications
+paths:
+  /breach-notifications:
+    post:
+      tags: [breach-notifications]
+      summary: Submit a personal data breach notification (M2M)
+      operationId: submitBreachNotification
+      description: >-
+        Submit a notification payload conforming to the EDPB breach-notification
+        schema. Idempotent via Idempotency-Key. Requires mutual TLS AND a scoped
+        OAuth2 client-credentials token; the request body SHOULD be signed
+        (HTTP Message Signatures, RFC 9421) for non-repudiation.
+      security:
+        - mtls: []
+          oauth2: [breach.submit]
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, format: uuid }
+          description: Prevents duplicate submissions on retry within the 72h window.
+        - name: Signature
+          in: header
+          required: false
+          schema: { type: string }
+          description: HTTP Message Signature (RFC 9421) over the request for non-repudiation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./breach-notification.schema.json"
+      responses:
+        "201":
+          description: Notification accepted and recorded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notification_id: { type: string }
+                  received_at: { type: string, format: date-time }
+                  status: { type: string, enum: [received, under_review] }
+        "202":
+          description: Accepted as preliminary/incomplete; follow-up expected.
+        "400":
+          description: Schema validation failed.
+        "401":
+          description: Authentication failed (mTLS or OAuth2).
+        "409":
+          description: Duplicate Idempotency-Key — already submitted.
+        "422":
+          description: Well-formed but semantically invalid (e.g. conditional rule violated).
+        "429":
+          description: Rate limit exceeded.
+components:
+  securitySchemes:
+    mtls:
+      type: mutualTLS
+      description: Mutual TLS — both controller's system and the DPA authenticate via certificates.
+    oauth2:
+      type: oauth2
+      description: OAuth2 client-credentials (M2M); short-lived scoped bearer token. Client identity is bound to a registered controller to prevent spoofed notifications.
+      flows:
+        clientCredentials:
+          tokenUrl: https://dpa.example/oauth/token
+          scopes:
+            breach.submit: Submit breach notifications on behalf of a registered controller
+  # Art. 32-by-design measures (documented for the consultation):
+  # 1. TLS 1.3 + mutual TLS  2. OAuth2 client-credentials + controller-bound identity
+  # 3. HTTP Message Signatures (RFC 9421) for integrity/non-repudiation
+  # 4. Idempotency-Key (no duplicate submissions)  5. Per-client rate limiting
+  # 6. Immutable audit log (sender, timestamp, payload hash)  7. Server-side JSON Schema validation
+  # 8. API versioning (schema evolution without breaking clients)

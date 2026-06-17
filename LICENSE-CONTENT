@@ -1,0 +1,17 @@
+Creative Commons Attribution 4.0 International (CC-BY-4.0)
+
+The following are licensed under CC-BY-4.0:
+- documentation (README and docs/)
+- the field schema and catalogs (src/schema/, including breach-notification.schema.json)
+- the accompanying paper (paper/)
+- translation content (src/i18n/)
+
+You are free to share and adapt this material for any purpose, even commercially,
+under the following term:
+- Attribution - You must give appropriate credit to "Nicola Franchetto and
+  Martim Taborda Barata", provide a link to the license, and indicate if changes
+  were made.
+
+Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Note: the software source code is licensed separately under Apache-2.0 (see LICENSE).

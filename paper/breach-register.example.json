@@ -1,0 +1,36 @@
+[
+  {
+    "reference": "BR-2026-014",
+    "date_period": "2026-06-15",
+    "circumstances_cause": "Ransomware exfiltration of customer database. | cause: d) External malicious",
+    "nature_cia": "a) Confidentiality breach - where there is an unauthorised or accidental disclosure of, or access to, personal data.",
+    "incident_type": "b) Encrypted device / ransomware",
+    "data_categories": "Names, emails, payment methods.",
+    "numbers": "~12,000",
+    "risk_outcome": "a) The personal data breach is likely to result in a high risk to the rights and freedoms of natural persons",
+    "methodology_enisa": "ENISA SE = 4.75 (Very High)",
+    "notified_authority": "Yes (Art. 33)",
+    "notified_individuals": "a) Yes",
+    "reasoned_basis": "Email to affected individuals scheduled.",
+    "measures": "Isolated systems, rotated credentials, engaged IR firm.",
+    "retention": "24 months min.",
+    "saved_at": "2026-06-16T09:00:00Z"
+  },
+  {
+    "reference": "BR-2026-009",
+    "date_period": "2026-05-29",
+    "circumstances_cause": "Email sent to wrong recipient who confirmed deletion. | cause: a) Internal non malicious",
+    "nature_cia": "a) Confidentiality breach - where there is an unauthorised or accidental disclosure of, or access to, personal data.",
+    "incident_type": "r) Personal data sent by mistake (post/email)",
+    "data_categories": "Name and appointment date.",
+    "numbers": "1",
+    "risk_outcome": "No high risk",
+    "methodology_enisa": "ENISA SE = 1.5 (Low)",
+    "notified_authority": "No (no likely risk - recorded)",
+    "notified_individuals": "No / not required",
+    "reasoned_basis": "Not notified - no likely risk; recorded under Art. 33(5).",
+    "measures": "Recipient confirmed deletion; no further action.",
+    "retention": "24 months min.",
+    "saved_at": "2026-05-30T14:00:00Z"
+  }
+]

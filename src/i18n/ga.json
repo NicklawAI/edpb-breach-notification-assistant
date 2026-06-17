@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "lang": "ga",
+    "name": "Gaeilge",
+    "status": "draft",
+    "canonical": false,
+    "note": "Draft scaffold - English fallback used for untranslated keys. Legally-sensitive terms pending legal/research validation."
+  }
+}

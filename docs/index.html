@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDPB Breach Notification - Position Paper & Reference Tool</title>
+  <meta name="description" content="A position paper on the EDPB personal data breach notification template, with an open-source reference tool. Adhere as a signatory." />
+  <style>
+    :root { --navy:#0f2740; --blue:#1f5fae; --accent:#2e7d32; --bg:#f5f7fa; --card:#fff; --line:#e2e8f0; --muted:#5b6b7c; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:#16222e; background:var(--bg); line-height:1.6; }
+    .hero { background:linear-gradient(135deg,#0f2740,#1f5fae); color:#fff; padding:56px 20px; }
+    .wrap { max-width:860px; margin:0 auto; padding:0 18px; }
+    .hero h1 { font-size:2rem; margin:0 0 10px; letter-spacing:-0.02em; }
+    .hero p { font-size:1.08rem; opacity:.94; margin:0 0 8px; }
+    .badge { display:inline-block; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:4px 12px; font-size:.82rem; margin-top:10px; }
+    section { padding:34px 0; border-bottom:1px solid var(--line); }
+    h2 { color:var(--navy); }
+    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+    .btn { display:inline-block; padding:12px 20px; border-radius:10px; text-decoration:none; font-weight:600; }
+    .btn.primary { background:#fff; color:var(--blue); }
+    .btn.primary.adhere { background:var(--accent); color:#fff; }
+    .btn.ghost { border:1px solid rgba(255,255,255,.6); color:#fff; }
+    .btn.solid { background:var(--blue); color:#fff; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px; }
+    @media(max-width:620px){ .grid{ grid-template-columns:1fr; } }
+    .cardlink { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; text-decoration:none; color:inherit; display:block; }
+    .cardlink b { color:var(--navy); }
+    ol.props { columns:2; gap:24px; } @media(max-width:620px){ ol.props{ columns:1; } }
+    ol.props li { margin:4px 0; break-inside:avoid; }
+    .draft { background:#fff8e1; border:1px solid #ffe08a; color:#6a5400; padding:10px 14px; border-radius:8px; font-size:.9rem; }
+    footer { color:var(--muted); font-size:.84rem; padding:24px 0; }
+    a { color:var(--blue); }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="wrap">
+      <h1>EDPB breach notification: a proposal, and a tool you can use today</h1>
+      <p>A position paper responding to the EDPB public consultation on the Article 33 GDPR breach-notification template - with an open-source reference implementation.</p>
+      <p>by <b>Nicola Franchetto</b> and <b>Martim Taborda Barata</b> · CC BY 4.0 · for free adoption by data protection authorities</p>
+      <span class="badge">Consultation open until 5 August 2026</span>
+      <div class="cta-row">
+        <a class="btn primary adhere" href="https://github.com/NicklawAI/edpb-breach-notification-assistant/issues/new?template=adhere.yml">➡️ Adhere as a signatory</a>
+        <a class="btn ghost" href="https://github.com/NicklawAI/edpb-breach-notification-assistant#the-20-proposals-synthesis">Read the proposals</a>
+        <a class="btn ghost" href="./tool.html">Try the tool (offline)</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <p class="draft"><b>Consultation draft - pending co-author review.</b> The canonical versions are the Google Docs; this work is not for formal circulation until finalised.</p>
+    </section>
+
+    <section>
+      <h2>Not just a critique - we ship a reference implementation</h2>
+      <p>The paper endorses the template's strengths and proposes 20 additive improvements, drawn from a comparison with mature regimes (UK, Australia, California, Canada) and standards (ENISA, ISO/IEC 27035). The accompanying tool demonstrates that the technical proposals - a machine-readable schema, ENISA severity scoring, an open submission API - are concrete and usable now.</p>
+      <div class="grid">
+        <a class="cardlink" href="https://docs.google.com/document/d/1j_EviybY26zvKFckELPB5nwFt1pk5HhGxEYK4EcUaQA"><b>📄 Position paper - English</b><br>Canonical Google Doc (comment-enabled)</a>
+        <a class="cardlink" href="https://docs.google.com/document/d/1Mlu56eJNZKmC0LyWH-5FIIAPfKtEDn3Cspo9CoVgWUM"><b>📄 Position paper - Italiano</b><br>Documento canonico (commentabile)</a>
+        <a class="cardlink" href="./tool.html"><b>🛠️ EDPB Breach Notification Assistant</b><br>Offline · ENISA scoring · 24 EU languages · open API</a>
+        <a class="cardlink" href="https://github.com/NicklawAI/edpb-breach-notification-assistant"><b>💻 Repository</b><br>Schema, OpenAPI, source - Apache-2.0 + CC BY 4.0</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>The 20 proposals</h2>
+      <ol class="props">
+        <li>SME track (Art. 33(3) minimum)</li>
+        <li>Anchor severity to ENISA (SE ≥ 2)</li>
+        <li>Align the severity scale (3 vs 4 levels)</li>
+        <li>Format, not channel</li>
+        <li>Structured withdrawal reason</li>
+        <li>Processor-to-controller flag (Art. 33(2))</li>
+        <li>Encryption → Art. 34(3)(a) link</li>
+        <li>Multi-regime coordination (NIS2/DORA)</li>
+        <li>Attachment format/size guidance</li>
+        <li>Two-tier public/confidential (OAIC)</li>
+        <li>Guided pre-assessment (ICO)</li>
+        <li>Art. 33(5) register (Canada, 24 months)</li>
+        <li>ISO/IEC 27035 alignment</li>
+        <li>Aggregate transparency (California)</li>
+        <li>Transition timeline</li>
+        <li>Machine-readable format + optional M2M</li>
+        <li>Digital Omnibus forward-compatibility</li>
+        <li>NIS2/DORA staged-timeline mapping</li>
+        <li>Machine-computable severity</li>
+        <li>Multilingual stable vocabulary</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Adhere to the proposal</h2>
+      <p>If you work in data protection - a DPO, a lawyer, a supervisory authority - add your name in two clicks. A short form: name, role, organisation, country. No technical knowledge required.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="https://github.com/NicklawAI/edpb-breach-notification-assistant/issues/new?template=adhere.yml">➡️ Adhere as a signatory</a>
+        <a class="btn solid" style="background:#5b6b7c" href="https://github.com/NicklawAI/edpb-breach-notification-assistant/fork">Fork / contribute (developers)</a>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Nicola Franchetto, Martim Taborda Barata · Code Apache-2.0 · Paper &amp; content CC BY 4.0 ·
+      The EDPB template is in public consultation and not yet usable for live notifications.
+    </footer>
+  </div>
+</body>
+</html>

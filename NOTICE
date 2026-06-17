@@ -1,0 +1,18 @@
+EDPB Breach Notification Assistant
+Copyright 2026 Nicola Franchetto, Martim Taborda Barata
+
+This product includes software developed by
+Nicola Franchetto (https://franchetto.legal) and Martim Taborda Barata.
+
+Licensed under the Apache License, Version 2.0 (the "License").
+Documentation, the field schema, the accompanying paper and other content
+are licensed under Creative Commons Attribution 4.0 International (CC-BY-4.0).
+
+When you use, adopt, or modify this work, you must retain this attribution to
+Nicola Franchetto and Martim Taborda Barata.
+
+This tool implements the EDPB "Template for personal data breach notification"
+v1.0 (adopted 8 June 2026, public consultation until 5 August 2026). It is a
+technical reference for interoperability and preparation; it is NOT an official
+submission channel and must not be used for live notifications to a supervisory
+authority until the authorities implement the template.

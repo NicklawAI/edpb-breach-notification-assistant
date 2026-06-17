@@ -1,0 +1,1410 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://franchetto.legal/schemas/edpb-breach-notification/v1.0",
+  "title": "EDPB Personal Data Breach Notification (template v1.0)",
+  "description": "Machine-readable JSON Schema derived 1:1 from the EDPB template v1.0 (adopted 2026-06-08; public consultation until 2026-08-05). Cell-level extraction from the official .docx, double-parsed and reconciled. Each field annotated with its GDPR article anchor (x-gdpr-ref). Source: https://www.edpb.europa.eu/our-work-tools/our-documents/other/template-personal-data-breach-notification_en",
+  "type": "object",
+  "x-template-version": "1.0",
+  "x-source": "https://www.edpb.europa.eu/our-work-tools/our-documents/other/template-personal-data-breach-notification_en",
+  "x-input-field-count": 100,
+  "x-mandatory-breakdown": {
+    "yes": 42,
+    "conditional": 46,
+    "no": 12
+  },
+  "x-gdpr-anchored-fields": 90,
+  "x-note": "126 numbered rows = 100 input fields + 26 section/structural rows.",
+  "properties": {
+    "field_3": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b"
+      ],
+      "x-options": {
+        "a": "New Notification",
+        "b": "Follow-Up Notification"
+      },
+      "title": "Type of notification",
+      "x-section": "1.1",
+      "description": "Indicate here if you notifying a new data breach or if you are amending a previous notification"
+    },
+    "field_4": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Complete",
+        "b": "Incomplete",
+        "c": "Withdraw"
+      },
+      "title": "Sub-type of notification",
+      "x-section": "1.1",
+      "description": "Indicate here if you provide a complete notification, amend a preliminary (incomplete) notification or provide preliminary (incomplete) information to be amended.Complete (all required information can be provided)Incomplete (not all information can be provided right now)Withdraw (Cancel a previous Notification; e.g. duplicate, no risk after initial assessment)",
+      "x-visible-if": "Withdraw visible only if \"Type of notification\" = \"follow-up notification\""
+    },
+    "field_5": {
+      "type": "string",
+      "title": "Reasons for withdrawing a previous notification",
+      "x-section": "1.1",
+      "x-visible-if": "visible only if \"Type of notification\" = \"follow-up notification\" and \"Sub-type of follow-up notification\" = \"Withdraw\"",
+      "x-required-if": "if visible"
+    },
+    "field_6": {
+      "type": "string",
+      "title": "ID of previously notified personal data breach",
+      "x-section": "1.1",
+      "description": "Please provide the ID of the previous personal data breach your are completing or amending.",
+      "x-visible-if": "visible only if \"Type of notification\" = \"complementary/amended notification/withdraw\". Check existence of a previously notified data breach",
+      "x-required-if": "if applicable"
+    },
+    "field_7": {
+      "type": "string",
+      "title": "Data controller's internal reference number",
+      "x-section": "1.1",
+      "description": "Provide your internal reference number if any"
+    },
+    "field_10": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "CompanyID",
+        "b": "Organisation number",
+        "c": "VAT Number (…) […]"
+      },
+      "title": "Type of Identifier",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "optional field",
+      "x-required-if": "if applicable"
+    },
+    "field_11": {
+      "type": "string",
+      "title": "Identifier",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "optional field, Ask for selected identifier",
+      "x-required-if": "if applicable"
+    },
+    "field_12": {
+      "type": "string",
+      "title": "Name of the organisation",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_13": {
+      "type": "string",
+      "title": "Contact details*",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_14": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b"
+      ],
+      "x-options": {
+        "a": "Private",
+        "b": "Public"
+      },
+      "title": "Sector",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_15": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "x-options": {
+        "a": "Freelance or Microenterprise",
+        "b": "Small or Medium Enterprise",
+        "c": "Large Enterprise",
+        "d": "Others"
+      },
+      "title": "Type of organisation",
+      "x-section": "1.1",
+      "description": "If you consider your organisation not fitting in those four categories, please select “Others” and specify how.",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if private"
+    },
+    "field_16": {
+      "type": "string",
+      "title": "Further description of organisation type",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if others"
+    },
+    "field_17": {
+      "type": "string",
+      "title": "Classification of economic activity",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_18": {
+      "type": "string",
+      "title": "Name of representative in EEA",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if controller not established in EEA",
+      "x-required-if": "if visible"
+    },
+    "field_19": {
+      "type": "string",
+      "title": "Contact details* of representative in EEA",
+      "x-section": "1.1",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_21": {
+      "type": "string",
+      "title": "Name of the reporting person",
+      "x-section": "2.2",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_22": {
+      "type": "string",
+      "title": "Contact details",
+      "x-section": "2.2",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_23": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "DPO",
+        "b": "Legal representative",
+        "c": "Authorised representative or other (please specify)"
+      },
+      "title": "Function of the reporting person",
+      "x-section": "2.2",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_24": {
+      "type": "string",
+      "title": "Description of the function of the reporting person",
+      "x-section": "2.2",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if 23 is c) other",
+      "x-required-if": "if visible"
+    },
+    "field_25": {
+      "type": "string",
+      "title": "National identification number",
+      "x-section": "2.2",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "Optional field, implement only if required",
+      "x-required-if": "if applicable"
+    },
+    "field_26": {
+      "type": "string",
+      "title": "Accuracy & Responsibility",
+      "x-section": "2.2",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "Optional field, implement only if required",
+      "x-required-if": "if applicable"
+    },
+    "field_29": {
+      "type": "string",
+      "title": "Is a data protection officer designated?",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)",
+      "x-visible-if": "only if DPO not provided as reporting person in 1, yet"
+    },
+    "field_30": {
+      "type": "string",
+      "title": "Name of the DPO",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)",
+      "x-visible-if": "only if DPO not provided, yet"
+    },
+    "field_31": {
+      "type": "string",
+      "title": "Contact details*",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)",
+      "x-visible-if": "only if DPO not provided, yet"
+    },
+    "field_33": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "DPO",
+        "b": "Reporting person",
+        "c": "Other (please specify)"
+      },
+      "title": "More information about the incident can be obtained at",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)"
+    },
+    "field_34": {
+      "type": "string",
+      "title": "Name of the contact person",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)",
+      "x-required-if": "if visible"
+    },
+    "field_35": {
+      "type": "string",
+      "title": "Function of the contact person",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)",
+      "x-required-if": "if visible"
+    },
+    "field_36": {
+      "type": "string",
+      "title": "Contact details*",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(3)(b)",
+      "x-required-if": "if visible"
+    },
+    "field_38": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b"
+      ],
+      "x-options": {
+        "a": "Yes",
+        "b": "No"
+      },
+      "title": "Are other parties such as data processors or joint controllers involved?",
+      "x-section": "2.3.1",
+      "description": "Indicate here if other organisations were involved in the data breach (for example a data processor, a joint controller, etc.)",
+      "x-gdpr-ref": "Art. 33(2); Art. 28; Art. 26"
+    },
+    "field_39": {
+      "type": "string",
+      "title": "Qualification of the other involved party",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(2); Art. 28; Art. 26",
+      "x-visible-if": "visible only if \"Are other parties such as Data Processors or Joint Controllers involved?\" = yes"
+    },
+    "field_40": {
+      "type": "string",
+      "title": "Name of the other involved party",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(2); Art. 28; Art. 26",
+      "x-visible-if": "visible only if \"Are other parties such as Data Processors or Joint Controllers involved?\" = yes\nAllow multiple"
+    },
+    "field_41": {
+      "type": "string",
+      "title": "Contact details*",
+      "x-section": "2.3.1",
+      "x-gdpr-ref": "Art. 33(2); Art. 28; Art. 26"
+    },
+    "field_44": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "x-options": {
+        "a": "On a specific day",
+        "b": "From a date to a date",
+        "c": "From a date and is still ongoing",
+        "d": "Cannot be determined",
+        "e": "To be determined"
+      },
+      "title": "When did the personal data breach occur?",
+      "x-section": "3.1",
+      "description": "If you do not know the dates precisely, please indicate the estimated dates below",
+      "x-gdpr-ref": "Art. 33(1)",
+      "x-visible-if": "“ f) To be determined” only available for incomplete notification."
+    },
+    "field_45": {
+      "type": "boolean",
+      "title": "Only estimated dates are possible",
+      "x-section": "3.1",
+      "description": "Please indicated how you estimated the dates of the breach in field 49",
+      "x-gdpr-ref": "Art. 33(1)"
+    },
+    "field_46": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Beginning date and time of personal data breach",
+      "x-section": "3.1",
+      "x-gdpr-ref": "Art. 33(1)",
+      "x-required-if": "if visible"
+    },
+    "field_47": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Ending date and time of personal data breach",
+      "x-section": "3.1",
+      "x-gdpr-ref": "Art. 33(1)",
+      "x-visible-if": "Only if a,b selected",
+      "x-required-if": "if visible"
+    },
+    "field_48": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Date and time of awareness of the data controller of the personal data breach",
+      "x-section": "3.1",
+      "x-gdpr-ref": "Art. 33(1)"
+    },
+    "field_49": {
+      "type": "string",
+      "title": "Reasons for late notification of the personal data breach",
+      "x-section": "3.1",
+      "x-gdpr-ref": "Art. 33(1)",
+      "x-visible-if": "Visible only if \"date of awareness of breach\" + 72h > current time and \"new notification\"",
+      "x-required-if": "if visible"
+    },
+    "field_50": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "x-options": {
+        "a": "Detection by the data controller",
+        "b": "Detection and communication by the data processor",
+        "c": "Communication by a data subject",
+        "d": "Communication by an external party",
+        "e": "Press news",
+        "f": "Other (please specify in further description)"
+      },
+      "title": "How was the personal data breach discovered?",
+      "x-section": "3.1",
+      "x-gdpr-ref": "Art. 33(1)"
+    },
+    "field_51": {
+      "type": "string",
+      "title": "Further description of the discovery of the personal data breach",
+      "x-section": "3.1",
+      "description": "Please describe how the personal data breach was discovered, e.g., Malware or Intrusions detecion system, Coordinated Vulnerability Disclosure, …",
+      "x-gdpr-ref": "Art. 33(1)"
+    },
+    "field_52": {
+      "type": "string",
+      "format": "date",
+      "title": "Date of notification by other party",
+      "x-section": "3.1",
+      "description": "If you do not know this date precisely, please indicate the approximate date.",
+      "x-gdpr-ref": "Art. 33(1)",
+      "x-visible-if": "only if external notification (50 is b), c), d), e), f))",
+      "x-required-if": "if visible"
+    },
+    "field_53": {
+      "type": "string",
+      "title": "Further comments on timeline and additional information",
+      "x-section": "3.1",
+      "description": "Please provide an overview over relevant events and other issues regarding the timeline (if applicable), such as, the duration of impacts on availability, integrity and confidentiality, the awareness date of the processor, etc.\nPlease indicated how you estimated the dates of the breach (if applicable)",
+      "x-gdpr-ref": "Art. 33(1)",
+      "x-required-if": "if 41a"
+    },
+    "field_55": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Confidentiality breach - where there is an unauthorised or accidental disclosure of, or access to, personal data.",
+        "b": "Integrity breach - where there is an unauthorised or accidental alteration of personal data.",
+        "c": "Availability breach - where there is an accidental or unauthorised loss of access to, or destruction of, personal data."
+      },
+      "title": "Nature of the personal data breach",
+      "x-section": "3.2",
+      "x-gdpr-ref": "Art. 4(12); Art. 33(3)(a)"
+    },
+    "field_56": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "x-options": {
+        "a": "Personal data are exfiltrated or disclosed",
+        "b": "Personal data are likely exfiltrated or disclosed (no evidence)",
+        "c": "Personal data are NOT exfiltrated NOR disclosed (reasonable evidence present)",
+        "d": "Not possible to assess",
+        "e": "To be determined"
+      },
+      "title": "Type of confidentiality breach",
+      "x-section": "3.2",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if confidentiality\n”To be determined” only available for incomplete notification.",
+      "x-required-if": "if visible"
+    },
+    "field_57": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "x-options": {
+        "a": "Yes and protection is still intact (e.g. data was securely encrypted or otherwise protected)",
+        "b": "Protective measures had been taken, but it is likely that they could be  subverted  (e.g. because the unauthorised party could be able to use decryption keys or exploit a technical weakness in the measures that have been applied)",
+        "c": "No",
+        "d": "Not possible to assess",
+        "e": "To be determined"
+      },
+      "title": "Was the data unintelligible to anyone who was not authorised to access it  or were individuals not identifiable?",
+      "x-section": "3.2",
+      "description": "If you answered d), please specify why the assessment is not possible (e.g. technical reasons)",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if confidentiality\n”To be determined” only available for incomplete notification.",
+      "x-required-if": "if visible"
+    },
+    "field_58": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Alteration or modification of the data, with no evidence of illegal or wrong use",
+        "b": "Alteration or modification of the data, with evidence of illegal or wrong use, but with the possibility of reversing/recovering the damages to data subjects",
+        "c": "Alteration or modification of the data with evidence of illegal or wrong use, without the possibility of reversing/recovering damages to the data subjects"
+      },
+      "title": "Type of integrity breach",
+      "x-section": "3.2",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if integrity",
+      "x-required-if": "if visible"
+    },
+    "field_59": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Temporary availability issue",
+        "b": "Permanent availability issue",
+        "c": "not determined"
+      },
+      "title": "Type of availability breach",
+      "x-section": "3.2",
+      "description": "Please assess the availability issue form the data subject’s perspective",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "only if availability",
+      "x-required-if": "if visible"
+    },
+    "field_60": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y"
+      ],
+      "x-options": {
+        "a": "Abuse of access privileges by employee",
+        "b": "Encrypted device / ransomware",
+        "c": "Hacking / malware activity detected",
+        "d": "Phishing / social engineering",
+        "e": "Security vulnerability (likely) exploited (known CVE or zero day)",
+        "f": "Unauthorised access to personal data in IT systems",
+        "g": "Data exfiltration / unauthorised extraction of personal data",
+        "h": "Data of wrong data subject shown (mix-up of records)",
+        "i": "Device lost or stolen",
+        "j": "E-waste (personal data still present on obsolete device)",
+        "k": "Incorrect disposal of personal data on paper",
+        "l": "Mail lost or opened / misdelivery (post/email)",
+        "m": "Misconfiguration",
+        "n": "Incorrect access permissions (e.g., cloud storage, shared folder)",
+        "o": "Paper lost or stolen or left in insecure location",
+        "p": "Personal data deleted/destroyed",
+        "q": "Personal data displayed to wrong recipient",
+        "r": "Personal data sent by mistake (post/email)",
+        "s": "Sending email to multiple recipients without blind copy / with open distribution list",
+        "t": "Technical malfunction",
+        "u": "Unauthorised data modification",
+        "v": "Unintended publication (e.g., public link / public website / shared drive)",
+        "w": "Verbal unauthorised disclosure of personal data",
+        "x": "to be determined",
+        "y": "Other (please specify in further description)"
+      },
+      "title": "Nature of the incident",
+      "x-section": "3.2",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_61": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "x-options": {
+        "a": "Internal non malicious",
+        "b": "Internal malicious",
+        "c": "External non malicious",
+        "d": "External malicious",
+        "e": "To be determined",
+        "f": "Unknown"
+      },
+      "title": "Cause of the personal data breach",
+      "x-section": "3.2",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "”To be determined” only available for incomplete notification."
+    },
+    "field_62": {
+      "type": "string",
+      "title": "Further description of the nature of the incident",
+      "x-section": "3.2",
+      "description": "Please describe the nature of the breach (detection, awareness, cause, measures in place) shortly and provide on what facts your decision is grounded. If possible indicate the root cause of the incident.",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_63": {
+      "type": "string",
+      "title": "Description of the systems, software, services, and infrastructures involved in the personal data breach and where they are located",
+      "x-section": "3.2",
+      "description": "Please list the descriptions them in semantic groups, e.g. \n\nSystems:\n• production database :\n  o client database (full/partial) that countains ****, located in ***\n  o internal HR database (full/partial) that countains ****, located in ***\n• test infrastucture\n  o testing database (full/partial) that countains ****; located in ***\nSoftware:\n• Accounting software\n• Payment system software",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_65": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k"
+      ],
+      "x-options": {
+        "a": "Customers (current and prospects)",
+        "b": "Employees (former, current and candidates)",
+        "c": "Military or law enforcement staff",
+        "d": "Minors",
+        "e": "Patients",
+        "f": "Students",
+        "g": "Subscribers",
+        "h": "Users",
+        "i": "Vulnerable individuals (elderly, refugees, disabled people, victims, …)",
+        "j": "Additional concerned data subjects (please specify in further description)",
+        "k": "Not yet known"
+      },
+      "title": "Categories of concerned data subjects",
+      "x-section": "3.3",
+      "description": "If you answered i), please indicate what kind of vulnerable people. If you are not sure if or how the concerned data subject are vulnerable, please describe them shortly and why you would consider them as vulnerable.",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "”Not yet known” only available for incomplete notification."
+    },
+    "field_66": {
+      "type": "string",
+      "title": "Further description of categories of concerned data subjects and additional data subjects",
+      "x-section": "3.3",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_67": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "x-options": {
+        "a": "Exact number",
+        "b": "Approximate number",
+        "c": "Number cannot be determined",
+        "d": "Number to be determined"
+      },
+      "title": "Data subjects concerned by the personal data breach",
+      "x-section": "3.3",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "”Number to be determined ” only available for incomplete notification."
+    },
+    "field_68": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Number of data subjects concerned by the personal data breach",
+      "x-section": "3.3",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "Only if a/b selected\n\nask according to selected value before, Tooltip: “if c) the current estimate is: …”",
+      "x-required-if": "if ‘exact number’ or ‘approximate number’ in previous question"
+    },
+    "field_70": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u"
+      ],
+      "x-options": {
+        "a": "Basic data (e.g. name, surname, date of birth)",
+        "b": "Contact details (e.g. address, phone number, e-mail)",
+        "c": "Biometric data",
+        "d": "Criminal convictions, offence or security measures",
+        "e": "Data revealing political opinions",
+        "f": "Data revealing racial or ethnic origin",
+        "g": "Data revealing religious or philosophical beliefs",
+        "h": "Data revealing sex life or sexual orientation",
+        "i": "Data revealing trade union membership",
+        "j": "Genetic data",
+        "k": "Health data (e.g. medical records, test results, …)",
+        "l": "Economic and financial data",
+        "m": "Employment related health data (e.g. proof of sick leave, proof of medical attendance, results of medical fitness tests or similar)",
+        "n": "Identification data (e.g. National identification number, ID number)",
+        "o": "Location data",
+        "p": "Official documents (e.g. scanned copies)",
+        "q": "Payment methods (e.g. credit card, bank accounts)",
+        "r": "Profile data (e.g. social network, credit score, psychology or other profile",
+        "s": "s) User credentials (e.g. usernames, passwords, tokens)",
+        "t": "Not yet known",
+        "u": "Additional data types (please specify in further description)"
+      },
+      "title": "Type of breached data",
+      "x-section": "3.4",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "”Not yet known” only available for incomplete notification."
+    },
+    "field_71": {
+      "type": "string",
+      "title": "Further description of breached data and additional data categories",
+      "x-section": "3.4",
+      "x-gdpr-ref": "Art. 33(3)(a)"
+    },
+    "field_72": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "x-options": {
+        "a": "Exact number",
+        "b": "Approximate number",
+        "c": "Number cannot be determined",
+        "d": "Number to be determined"
+      },
+      "title": "Personal data records concerned by the personal data breach",
+      "x-section": "3.4",
+      "description": "Please specify the type of record: number of data about each concerned data subject. For instance, to avoid just mentionning “500”. Because “5 types of data (namely *,*,*,*,*,*) about 100 people” and “100 types of data (namely *,*,*,*,*) about 5 people” may not lead to the same risks assessment, even if it could both be sumed up to “500 records”.",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "”Number to be determined ” only available for incomplete notification."
+    },
+    "field_73": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Number of personal data records concerned by the personal data breach",
+      "x-section": "3.4",
+      "description": "Please indicate here the number of records concerned by the breach, meaning the number of single entries in the database concerned by the breach.",
+      "x-gdpr-ref": "Art. 33(3)(a)",
+      "x-visible-if": "ask according to selected value before"
+    },
+    "field_75": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l"
+      ],
+      "x-options": {
+        "a": "Pseudonymisation",
+        "b": "Backup / Recovery plan",
+        "c": "Data encryption",
+        "d": "Data protection and information security policies",
+        "e": "Data protection and security training",
+        "f": "Incident log",
+        "g": "Levels of access to data",
+        "h": "Logical access control (e.g. MFA)",
+        "i": "Periodic audits",
+        "j": "Physical access control",
+        "k": "Up-to-date IT systems",
+        "l": "Other measures (please specify in further description)"
+      },
+      "title": "Relevant measures in place when the personal data breach occurred",
+      "x-section": "3.5",
+      "description": "This list is not exhaustive and just covers common measures. \n\nYou may have not applied some measures because they were not applicables or useful.\n\nAt the same time, you may have applied non-listed measures that were useful. If so, please specify them with answer L.",
+      "x-gdpr-ref": "Art. 32; Art. 33(3)"
+    },
+    "field_76": {
+      "type": "string",
+      "title": "Further description of relevant measures in place when the personal data breach occurred",
+      "x-section": "3.5",
+      "description": "Reminder: You indicated that technical measures are likely to be subverted by the adversaries. Please add the relevant level of detail here to these measures, along the description of the other relevant measures.",
+      "x-gdpr-ref": "Art. 32; Art. 33(3)",
+      "x-visible-if": "If 57 indicated that measures in place are likely to be subverted, remind DCs here to detail on this in the tooltip"
+    },
+    "field_79": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "x-options": {
+        "a": "Data were disclosed beyond the scope of the privacy policy or relevant legislation",
+        "b": "Data may be linked, without unreasonable effort, with other information regarding data subjects",
+        "c": "Data may be used for purposes other than the intended purpose or unlawfully",
+        "d": "Other",
+        "e": "Under assessment"
+      },
+      "title": "Likely consequences in case of breach of confidentiality",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Confidentiality\"= yes\n”Under assessment ” only available for incomplete notification.",
+      "x-required-if": "if visible"
+    },
+    "field_80": {
+      "type": "string",
+      "title": "Description of other confidentiality consequences",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Other\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_81": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "x-options": {
+        "a": "Data may have been modified and used even though it is no longer valid",
+        "b": "Data may have been modified into otherwise valid data and subsequently used for other purposes",
+        "c": "Other",
+        "d": "Under assessment"
+      },
+      "title": "Likely consequences in case of breach of integrity",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Integrity\"= 1\n”Under assessment ” only available for incomplete notification.",
+      "x-required-if": "if visible"
+    },
+    "field_82": {
+      "type": "string",
+      "title": "Description of other integrity consequences",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Other\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_83": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "x-options": {
+        "a": "Inability to access services",
+        "b": "Service disruptions and difficulties in service use",
+        "c": "Other",
+        "d": "Under assessment"
+      },
+      "title": "Likely consequences in case of breach of availability",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Integrity\"= 1\n”Under assessment ” only available for incomplete notification.",
+      "x-required-if": "if visible"
+    },
+    "field_84": {
+      "type": "string",
+      "title": "Description of other availability consequences",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Other\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_85": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o"
+      ],
+      "x-options": {
+        "a": "Loss of control of their personal data",
+        "b": "Limitation of their rights",
+        "c": "Discrimination",
+        "d": "Identity theft or usurpation",
+        "e": "Fraud",
+        "f": "Financial loss",
+        "g": "Unauthorised reversal of pseudonymisation",
+        "h": "Damage to reputation",
+        "i": "Loss of confidentiality of personal data protected by professional secrecy",
+        "j": "Disclosure of data to unauthorised third parties",
+        "k": "Significant economic or social disadvantage",
+        "l": "Physical or mental harm",
+        "m": "Material or non-material damage to property",
+        "n": "Other impact (please specify in further description)",
+        "o": "To be determined"
+      },
+      "title": "Nature of the potential impact for the data subject",
+      "x-section": "4.1",
+      "description": "Please indicate here the nature of the impact on the data subject rights and freedoms.",
+      "x-gdpr-ref": "Art. 33(3)(c)"
+    },
+    "field_86": {
+      "type": "string",
+      "title": "Further description of the other impacts for the data subjects",
+      "x-section": "4.1",
+      "x-gdpr-ref": "Art. 33(3)(c)",
+      "x-visible-if": "visible only if \"Description of the potential impact for the data subject\" = \"other\"",
+      "x-required-if": "if visible"
+    },
+    "field_87": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "x-options": {
+        "a": "Minor",
+        "b": "Moderate",
+        "c": "Severe",
+        "d": "To be determined"
+      },
+      "title": "Severity of the potential impacts",
+      "x-section": "4.1",
+      "description": "Indicate here the result of your self-assessment of the severity of the impact of the breach for the data subjects. Please select the highest severity if multiple potential impacts can occur.",
+      "x-gdpr-ref": "Art. 33(3)(c)"
+    },
+    "field_89": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "The personal data breach is likely to result in a high risk to the rights and freedoms of natural persons",
+        "b": "The personal data breach is likely to result in a (not high) risk to the rights and freedoms of natural persons",
+        "c": "The personal data breach is unlikely to result in a risk to the rights and freedoms of natural personsc) Additional information is needed to assess the risk to the rights and freedoms of natural persons"
+      },
+      "title": "Outcome of the risk assessment carried out by the controller",
+      "x-section": "4.2",
+      "x-gdpr-ref": "Art. 33(1); Art. 34(1)",
+      "x-visible-if": "”Additional information is needed to assess the risk to the rights and freedoms of natural persons ” only available for incomplete notification."
+    },
+    "field_90": {
+      "type": "string",
+      "title": "Further description  of the risk assessment carried out by the data controller",
+      "x-section": "4.2",
+      "description": "Please describe the metodology used and the relevant factors you put into account.",
+      "x-gdpr-ref": "Art. 33(1); Art. 34(1)"
+    },
+    "field_92": {
+      "type": "string",
+      "title": "Measures taken to address the personal data breach and to mitigate its consequences",
+      "x-section": "4.3",
+      "description": "Please indicate to what extend the measures resolve the issue.",
+      "x-gdpr-ref": "Art. 33(3)(d)"
+    },
+    "field_94": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o"
+      ],
+      "x-options": {
+        "a": "Anonymisation",
+        "b": "Backup / Recovery plan",
+        "c": "Change of processes",
+        "d": "Data encryption",
+        "e": "Data protection and information security policies",
+        "f": "Data protection and security training",
+        "g": "Erasure of the data",
+        "h": "Incident log",
+        "i": "Levels of access to data",
+        "j": "Logical access control (e.g. MFA)",
+        "k": "Periodic audits",
+        "l": "Physical access control",
+        "m": "Pseudonymisation",
+        "n": "Up-to-date IT systems",
+        "o": "Other measures (please specify in further description)"
+      },
+      "title": "Relevant measures taken to prevent similar personal data breach",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 33(3)(d)"
+    },
+    "field_95": {
+      "type": "string",
+      "format": "date",
+      "title": "Further description of relevant updated permanent measures to avoid similar incidents in the future",
+      "x-section": "4.4",
+      "description": "Please indicate to what extend the measures resolve the issue and improve the situation.\n\nA description is expected if you answered with “Other measures” in the previous question m).\n\nNevertheless, do not hesitate to describe further measures taken after the breach, or to be taken, if you think it is relevant.",
+      "x-gdpr-ref": "Art. 33(3)(d)"
+    },
+    "field_97": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "x-options": {
+        "a": "Yes",
+        "b": "No, but it will be communicated on a specific date b1) No, but it will be communicated on a date to be determined",
+        "c": "No, the investigation is still ongoing",
+        "d": "No, it will not be communicated since the personal data breach is unlikely to result in a high risk to the rights and freedoms of natural persons",
+        "e": "No, it will not be communicated since one of the conditions referred to in article 34(3) of the GDPR is met"
+      },
+      "title": "Has the personal data breach been communicated to data subjects?",
+      "x-section": "4.4",
+      "description": "If you have not assessed yet if you are going to notify, please note that you will have to make a follow-up notification once you have make your decision\n\nIf you communicate the data breach to the data subjects in phases or if you cannot reach out to all data subjects, yet. Please indicated that in field 98 and 98a.",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "No, the risk assessment is still ongoing’ only available for incomplete notifications."
+    },
+    "field_98": {
+      "type": "string",
+      "format": "date",
+      "title": "Date of when information was given to data subjects",
+      "x-section": "4.4",
+      "description": "Please indicate here the date on which you have started to inform the data subjects.",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"information of data subject\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_99": {
+      "type": "string",
+      "format": "date",
+      "title": "Future date on which the data breach will be communicated to the data subjects",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"information of data subject\" = \"No, but it will be communicated\"",
+      "x-required-if": "One of the fields is mandatory if \"information of data subject\" = \"No, but it will be communicated\""
+    },
+    "field_100": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "The controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption.",
+        "b": "The controller has taken subsequent measures which ensure that the high risk to the rights and freedoms of data subjects referred to in paragraph 1 is no longer likely to materialise.",
+        "c": "It would involve disproportionate effort. In such a case, there shall instead be a public communication or similar measure whereby the data subjects are informed in an equally effective manner."
+      },
+      "title": "Further information about conditions referred to in article 34(3) of the GDPR that are met",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 34(3)(a)(b)(c)",
+      "x-visible-if": "visible only if \"information of data subject\" = \"No they will not be informed\"",
+      "x-required-if": "if visible"
+    },
+    "field_101": {
+      "type": "string",
+      "title": "Further description why the conditions referred to in article 34(3) of the GDPR that are met and the measures taken",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 34(3)(a)(b)(c)",
+      "x-visible-if": "visible only if \"information of data subject\" = \"No they will not be informed\"",
+      "x-required-if": "if visible"
+    },
+    "field_102": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b"
+      ],
+      "x-options": {
+        "a": "All data subjects have been informed",
+        "b": "Not all data subjects have been informed"
+      },
+      "title": "Number of data subjects informed",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"information of data subject\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_103": {
+      "type": "string",
+      "title": "Further description why not all data subjects have been informed",
+      "x-section": "4.4",
+      "description": "Please specify the reason why some data subjects have not been informed, e.g. some might not have been because reason A, some other because reason B, etc.\n\nReasons can be of various natures and not just the technical ones have to be considered: ongoing process, some data subjects cannot be reached the same way, additionnal laws apply to them, the cost of information is much higher, etc",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"b) Not all data subjects have been informed”",
+      "x-required-if": "if visible"
+    },
+    "field_104": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Individual communication (letter/email/personal communication)",
+        "b": "Public announcement (website/press release/social network)",
+        "c": "Other"
+      },
+      "title": "Means of communication used to inform the data subject",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"information of data subject\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_105": {
+      "type": "string",
+      "title": "Further description of the other means of communication",
+      "x-section": "4.4",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"information of data subject\" = Yes"
+    },
+    "field_106": {
+      "type": "string",
+      "title": "Content of the information provided to the data subjects",
+      "x-section": "4.4",
+      "description": "Please provide this content in the most relevant way. For example, if the provided information is just an email with only plaintext, copying the text here is sufficent. If, for instance, your information contains pictures/videos useful for understanding, please provide the means for the data protection authority to consult it (website page, email screenshots, download page, etc).",
+      "x-gdpr-ref": "Art. 34(1); Art. 34(2)",
+      "x-visible-if": "visible only if \"information of data subject\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_109": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Yes",
+        "b": "No",
+        "c": "Unknown"
+      },
+      "title": "Has the incident been reported to the police/judicial authorities as a criminal offence?",
+      "x-section": "6.1"
+    },
+    "field_110": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Yes",
+        "b": "No",
+        "c": "Unknown"
+      },
+      "title": "Has the incident been notified to other supervisory authorities or control bodies under other relevant legislation? (e.g. national cyber security centre, etc.)",
+      "x-section": "6.1"
+    },
+    "field_111": {
+      "type": "string",
+      "title": "Further information about notification to other authorities or bodies",
+      "x-section": "6.1",
+      "description": "Please specify which authority (about data protection or not) and if possible, provide the case ID that this authority used and then can be referred to.",
+      "x-visible-if": "visible only if 109/110 is Yes",
+      "x-required-if": "if visible"
+    },
+    "field_113": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Yes",
+        "b": "No",
+        "c": "Unknown"
+      },
+      "title": "Does the personal data breach involve cross-border processing carried out by a controller established in the European Economic Area (EEA)?",
+      "x-section": "6.2",
+      "x-gdpr-ref": "Art. 56",
+      "x-visible-if": "SECTION: Only if DC is based in EEA"
+    },
+    "field_114": {
+      "type": "string",
+      "title": "The lead supervisory authority is:",
+      "x-section": "6.2",
+      "x-gdpr-ref": "Art. 56",
+      "x-required-if": "if visible"
+    },
+    "field_115": {
+      "type": "string",
+      "title": "List of EEA countries where the controller has an establishment",
+      "x-section": "6.2",
+      "description": "Indicate here the countries concerned by the breach.",
+      "x-gdpr-ref": "Art. 56",
+      "x-visible-if": "visible only if \"Is this notification a cross border notification made to your lead supervisory authority\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_116": {
+      "type": "string",
+      "title": "List of EEA countries where affected data subjects are located",
+      "x-section": "6.2",
+      "description": "Indicate here the countries concerned by the breach.",
+      "x-gdpr-ref": "Art. 56",
+      "x-visible-if": "visible only if \"Is this notification a cross border notification made to your lead supervisory authority\" = Yes",
+      "x-required-if": "if visible"
+    },
+    "field_117": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Approximate number of data subjects per country",
+      "x-section": "6.2",
+      "x-gdpr-ref": "Art. 56",
+      "x-visible-if": "Only for selected countries",
+      "x-required-if": "if visible"
+    },
+    "field_118": {
+      "type": "string",
+      "enum": [
+        "a"
+      ],
+      "x-options": {
+        "a": "- Der Landesbeauftragte für Datenschutz und Informationsfreiheit Mecklenburg-Vorpommern Germany (North Rhine-Westphalia) - Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen Germany (Rhineland-Palatinate) - Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz Germany (Saarland) - Unabhängiges Datenschutzzentrum Saarland / Landesbeauftragte für Datenschutz und Informationsfreiheit Germany (Saxony) - Sächsische Datenschutz- und Transparenzbeauftragte Germany (Saxony -Anhalt) - Landesbeauftragte für den Datenschutz Sachsen-Anhalt Germany (Schleswig-Holstein) - Landesbeauftragte für Datenschutz Schleswig-Holstein / Unabhängiges Landeszentrum für Datenschutz Schleswig-Holstein Germany (Thuringia) - Thüringer Landesbeauftragte für den Datenschutz und die Informationsfreiheit Greece - Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα Hungary - Nemzeti Adatvédelmi és Információszabadság Hatóság Iceland - Persónuvernd Ireland - Data Protection Commission / An Comisiún um Chosaint Sonraí Italy - Garante per la protezione dei dati personaliLatvia - Datu valsts inspekcijaLiechtenstein - Datenschutzstelle Lithuania - Valstybinė duomenų apsaugos inspekcija Lithuania - Žurnalistų etikos inspektoriaus tarnyba Luxembourg - Commission Nationale pour la Protection des Données / Nationale Kommission für Datenschutz Großherzogtum Malta - Office of the Information and Data Protection Commissioner Norway – Datatilsynet The Netherlands - Autoriteit Persoonsgegevens Poland - Urząd Ochrony Danych Osobowych Portugal - Comissão Nacional de Proteção de Dados Romania - Autoritatea Naţională de Supraveghere a Prelucrării Datelor cu Caracter Personal Slovakia - Úrad na ochranu osobných údajov Slovenskej republiky Slovenia - Informacijski pooblaščenec Spain - Agencia Española de Protección de Datos Sweden - Integritetsskyddsmyndigheten"
+      },
+      "title": "List of EEA supervisory authority to which the breach has been or will be notified",
+      "x-section": "6.2",
+      "description": "Indicate here the list of other EU Supervisory Authorities you have or you plan to notify.",
+      "x-gdpr-ref": "Art. 56",
+      "x-required-if": "if visible"
+    },
+    "field_120": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "x-options": {
+        "a": "Yes",
+        "b": "No",
+        "c": "Unknown"
+      },
+      "title": "Does the personal data breach involve processing, to which the GDPR applies, carried out by a controller that is not established in the European Economic Area (EEA)?",
+      "x-section": "6.3",
+      "x-gdpr-ref": "Art. 3(2)",
+      "x-visible-if": "SECTION: Only if DC is NOT based in EEA"
+    },
+    "field_121": {
+      "type": "string",
+      "title": "List of EEA countries where affected data subjects are located",
+      "x-section": "6.3",
+      "description": "Indicate here the countries concerned by the breach.",
+      "x-gdpr-ref": "Art. 3(2)",
+      "x-visible-if": "only if yes on first",
+      "x-required-if": "if visible"
+    },
+    "field_122": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Approximate number of data subjects per country",
+      "x-section": "6.3",
+      "x-gdpr-ref": "Art. 3(2)",
+      "x-visible-if": "only if yes on firstonly for selected countries",
+      "x-required-if": "if visible"
+    },
+    "field_123": {
+      "type": "string",
+      "enum": [
+        "a"
+      ],
+      "x-options": {
+        "a": "- Der Landesbeauftragte für Datenschutz und Informationsfreiheit Mecklenburg-Vorpommern Germany (North Rhine-Westphalia) - Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen Germany (Rhineland-Palatinate) - Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz Germany (Saarland) - Unabhängiges Datenschutzzentrum Saarland / Landesbeauftragte für Datenschutz und Informationsfreiheit Germany (Saxony) - Sächsische Datenschutz- und Transparenzbeauftragte Germany (Saxony -Anhalt) - Landesbeauftragte für den Datenschutz Sachsen-Anhalt Germany (Schleswig-Holstein) - Landesbeauftragte für Datenschutz Schleswig-Holstein / Unabhängiges Landeszentrum für Datenschutz Schleswig-Holstein Germany (Thuringia) - Thüringer Landesbeauftragte für den Datenschutz und die Informationsfreiheit Greece - Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα Hungary - Nemzeti Adatvédelmi és Információszabadság Hatóság Iceland - Persónuvernd Ireland - Data Protection Commission / An Comisiún um Chosaint Sonraí Italy - Garante per la protezione dei dati personali Latvia - Datu valsts inspekcija Liechtenstein - Datenschutzstelle Lithuania - Valstybinė duomenų apsaugos inspekcija Lithuania - Žurnalistų etikos inspektoriaus tarnyba Luxembourg - Commission Nationale pour la Protection des Données / Nationale Kommission für Datenschutz Großherzogtum Malta - Office of the Information and Data Protection Commissioner Norway – Datatilsynet The Netherlands - Autoriteit Persoonsgegevens Poland - Urząd Ochrony Danych Osobowych Portugal - Comissão Nacional de Proteção de Dados Romania - Autoritatea Naţională de Supraveghere a Prelucrării Datelor cu Caracter Personal Slovakia - Úrad na ochranu osobných údajov Slovenskej republiky Slovenia - Informacijski pooblaščenec Spain - Agencia Española de Protección de Datos Sweden - Integritetsskyddsmyndigheten"
+      },
+      "title": "List of EAA supervisory authority to which the breach has been or will be notified",
+      "x-section": "6.3",
+      "description": "Indicate here the list of other EU Supervisory Authorities you have or you plan to notify.",
+      "x-gdpr-ref": "Art. 3(2)",
+      "x-visible-if": "only if yes on first",
+      "x-required-if": "if visible"
+    },
+    "field_125": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j"
+      ],
+      "x-options": {
+        "a": "Dated copy of the communication to the datasubject",
+        "b": "Dated copy of the risk-assessment",
+        "c": "Dated copy of the research report into the data breach (cyberincidents)",
+        "d": "Dated copy of the ransomware-note",
+        "e": "Dated copy of the phishing-message",
+        "f": "Dated copy of the internal procedure to notify a data breach",
+        "g": "Dated copy of the internal policy to delete/destroy (outdated) personal data",
+        "h": "Dated copy of the communication to the wrong recipients",
+        "i": "Dated copy of the external notification/message of the data breach",
+        "j": "Other"
+      },
+      "title": "Please identify the attachments to this notification",
+      "x-section": "6.3",
+      "description": "Tooltip: with regard to phishing there needs to be a split-up of communications, namely, 3 categories: \nThe owner, datasubject of the mailbox\nData subjects that received a phishing-mail\n\nData subjects of which personal data was in the compromised mailbox"
+    },
+    "field_126": {
+      "type": "string",
+      "title": "Other attachements",
+      "x-section": "6.3",
+      "x-required-if": "if visible"
+    }
+  },
+  "required": [
+    "field_3",
+    "field_4",
+    "field_12",
+    "field_13",
+    "field_21",
+    "field_22",
+    "field_23",
+    "field_29",
+    "field_30",
+    "field_31",
+    "field_38",
+    "field_39",
+    "field_40",
+    "field_41",
+    "field_44",
+    "field_48",
+    "field_50",
+    "field_51",
+    "field_55",
+    "field_60",
+    "field_61",
+    "field_62",
+    "field_63",
+    "field_65",
+    "field_66",
+    "field_67",
+    "field_70",
+    "field_71",
+    "field_72",
+    "field_73",
+    "field_75",
+    "field_76",
+    "field_85",
+    "field_87",
+    "field_89",
+    "field_90",
+    "field_92",
+    "field_94",
+    "field_95",
+    "field_97",
+    "field_113",
+    "field_120"
+  ],
+  "additionalProperties": false
+}

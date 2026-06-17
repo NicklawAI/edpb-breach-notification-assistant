@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ISO/IEC 27035 incident management lifecycle alignment",
+  "description": "ISO/IEC 27035-1:2023 provides an incident management PROCESS LIFECYCLE and vocabulary, NOT a closed taxonomy of breach types. Used here as an interoperability anchor so a controller's incident-management process feeds the EDPB notification without re-mapping.",
+  "source": "ISO/IEC 27035-1:2023, Information security incident management - Part 1: Principles and process",
+  "source_url": "https://www.iso.org/standard/78973.html",
+  "caveat": "Full normative text is paywalled; phases below are from official ISO abstract/scope and are accurate at lifecycle level. Cite by clause number, do not reproduce paywalled text.",
+  "lifecycle": [
+    {"phase": 1, "key": "plan_prepare", "label": "Plan and Prepare", "desc": "Incident management policy, Incident Response Team (IRT), communication & escalation protocols meeting legal/contractual requirements."},
+    {"phase": 2, "key": "detect", "label": "Detect", "desc": "Collect situational-awareness info; detect and alert on anomalous/suspicious/malicious activity."},
+    {"phase": 3, "key": "report", "label": "Report", "desc": "Record and escalate detected events/incidents."},
+    {"phase": 4, "key": "assess", "label": "Assess", "desc": "Evaluate and decide (event vs incident; severity)."},
+    {"phase": 5, "key": "respond", "label": "Respond", "desc": "Contain, eradicate, recover."},
+    {"phase": 6, "key": "learn", "label": "Learn Lessons", "desc": "Identify and implement improvements; IRT evaluation."}
+  ],
+  "edpb_alignment": {
+    "note": "The EDPB taxonomy (field 60, 25 incident types) and C-I-A nature (field 55) anchor to ISO 27035 terminology/lifecycle so security operations feed the notification. This is an interoperability argument, not a 1:1 type map.",
+    "edpb_assess_phase": "EDPB notification corresponds to ISO 27035 phase 4 (Assess) -> phase 3 (Report) externally to the supervisory authority."
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://franchetto.legal/schemas/edpb-aggregate-transparency/v1.0",
+  "title": "EDPB breach notification - aggregate transparency model",
+  "description": "Aggregate, anonymised statistics of breach notifications derived from the EDPB template taxonomy (California-model transparency, proposal 14). Counts only, by category, over a reporting period. NEVER single-notification level. Anonymisation: no controller identity, no free-text, no dates finer than the period, small-cell suppression (k-anonymity).",
+  "type": "object",
+  "required": ["period", "k_anonymity_threshold", "total_notifications", "dimensions"],
+  "properties": {
+    "period": {"type": "object", "required": ["granularity", "label"], "properties": {
+      "granularity": {"type": "string", "enum": ["quarter", "year"]},
+      "label": {"type": "string", "description": "e.g. 2026-Q3 or 2026"}
+    }},
+    "k_anonymity_threshold": {"type": "integer", "minimum": 1, "description": "Cells with a count below this are suppressed (reported under 'suppressed')."},
+    "total_notifications": {"type": "integer", "minimum": 0},
+    "anonymisation_guarantees": {"type": "array", "items": {"type": "string"}},
+    "dimensions": {
+      "type": "object",
+      "description": "Each dimension maps a template field to a {category: count} map. Suppressed small cells are summed into '__suppressed__'.",
+      "properties": {
+        "incident_type": {"$ref": "#/$defs/countMap", "description": "EDPB field 60 (25 incident types)"},
+        "cause": {"$ref": "#/$defs/countMap", "description": "EDPB field 61 (cause quadrants)"},
+        "nature_cia": {"$ref": "#/$defs/countMap", "description": "EDPB field 55 (C-I-A)"},
+        "data_categories": {"$ref": "#/$defs/countMap", "description": "EDPB field 70 (a-u)"},
+        "severity_band": {"$ref": "#/$defs/countMap", "description": "ENISA band (low/medium/high/very_high)"},
+        "nace_sector": {"$ref": "#/$defs/countMap", "description": "EDPB field 17 (NACE A-V)"},
+        "data_subjects_range": {"$ref": "#/$defs/countMap", "description": "Bucketed range, not exact (1 / 2-9 / 10-99 / 100-999 / 1k-10k / >10k)"},
+        "art34_communicated": {"$ref": "#/$defs/countMap", "description": "EDPB field 97 (communicated to data subjects: yes/no)"}
+      }
+    }
+  },
+  "$defs": {
+    "countMap": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+  }
+}

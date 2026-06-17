@@ -1,0 +1,52 @@
+name: "Adhere to the proposal"
+description: "Add your name in support of the position paper on the EDPB breach-notification template. No technical knowledge required."
+title: "[Adhesion] <your name / organisation>"
+labels: ["adhesion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for supporting this proposal to the EDPB public consultation.
+        Fill in the fields below and click **Submit new issue**. Your adhesion will be added to `SIGNATORIES.md`.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      placeholder: e.g. Jane Doe
+    validations:
+      required: true
+  - type: input
+    id: role
+    attributes:
+      label: Role / title
+      placeholder: e.g. Data Protection Officer, Lawyer, DPA officer
+    validations:
+      required: true
+  - type: input
+    id: organisation
+    attributes:
+      label: Organisation
+      placeholder: e.g. Acme Ltd / Supervisory Authority of ...
+    validations:
+      required: false
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: e.g. Italy
+    validations:
+      required: true
+  - type: textarea
+    id: comment
+    attributes:
+      label: Comment (optional)
+      placeholder: Optional note on why you support the proposal.
+    validations:
+      required: false
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: "I consent to my name and the details above being listed publicly in SIGNATORIES.md as a supporter of this proposal."
+          required: true

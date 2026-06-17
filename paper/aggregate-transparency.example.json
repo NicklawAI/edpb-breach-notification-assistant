@@ -1,0 +1,49 @@
+{
+  "period": {
+    "granularity": "year",
+    "label": "2026"
+  },
+  "k_anonymity_threshold": 5,
+  "total_notifications": 16,
+  "anonymisation_guarantees": [
+    "counts only, no single-notification rows",
+    "no controller identity",
+    "no free-text",
+    "no dates finer than the reporting period",
+    "small-cell suppression (k-anonymity)"
+  ],
+  "dimensions": {
+    "incident_type": {
+      "b": 14,
+      "__suppressed__": 2
+    },
+    "cause": {
+      "d": 16
+    },
+    "nature_cia": {
+      "a": 16
+    },
+    "data_categories": {
+      "q": 14,
+      "__suppressed__": 2
+    },
+    "severity_band": {
+      "very_high": 8,
+      "high": 6,
+      "__suppressed__": 2
+    },
+    "nace_sector": {
+      "L": 10,
+      "K": 6
+    },
+    "data_subjects_range": {
+      "1k-10k": 8,
+      "10-99": 6,
+      "__suppressed__": 2
+    },
+    "art34_communicated": {
+      "communicated": 14,
+      "__suppressed__": 2
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Breach record (PIPEDA-style) - minimum content",
+  "description": "Register of ALL breaches incl. non-notifiable, modelled on Canada's Breach of Security Safeguards Regulations (SOR/2018-64) and GDPR Art. 33(5). Valorises the Art. 33(5) documentation duty with concrete minimum fields + retention.",
+  "source": "Breach of Security Safeguards Regulations SOR/2018-64; OPC guidance; GDPR Art. 33(5)",
+  "retention_months": 24,
+  "retention_note": "Minimum 24 months after the day the organisation determines the breach occurred (SOR/2018-64).",
+  "minimum_fields": [
+    {"key": "circumstances_cause", "label": "Circumstances and cause of the breach (if known)", "type": "textarea"},
+    {"key": "date_or_period", "label": "Date or period of the breach (or approximation)", "type": "text"},
+    {"key": "personal_information", "label": "Description of the personal information involved (to the extent known)", "type": "textarea"},
+    {"key": "number_affected", "label": "Number of individuals affected (or approximation)", "type": "text"},
+    {"key": "mitigation_steps", "label": "Steps taken to reduce/mitigate the risk of harm", "type": "textarea"},
+    {"key": "notification_steps", "label": "Steps taken or planned to notify affected individuals (where applicable)", "type": "textarea"}
+  ]
+}
