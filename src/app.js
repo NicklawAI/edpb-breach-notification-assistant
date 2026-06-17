@@ -9,11 +9,16 @@
   var lang = "en";
   var state = { pre: {}, enisa: {}, form: {}, severity: null };
 
-  function t(key) {
+  function t(key, fallback) {
     var L = I18N[lang] || {};
     if (L[key] != null) return L[key];
-    return (I18N.en[key] != null) ? I18N.en[key] : key;
+    if (I18N.en[key] != null) return I18N.en[key];
+    return (fallback != null) ? fallback : key;
   }
+  // Field/option content helpers (route the EDPB template strings through i18n).
+  function fLabel(f) { return t("f." + f.id + ".label", f.label); }
+  function fTip(f) { return f.tooltip ? t("f." + f.id + ".tip", f.tooltip) : ""; }
+  function oLabel(fid, okey, fallback) { return t("f." + fid + ".opt." + okey, fallback); }
   function el(tag, attrs, children) {
     var e = document.createElement(tag);
     attrs = attrs || {};
@@ -131,42 +136,42 @@
 
     // DPC base - segmented buttons (verbatim ENISA values, only the control type changes)
     wrap.appendChild(el("h3", {}, [t("enisa.dpc")]));
-    wrap.appendChild(helpLine("Data Processing Context: how critical the data is. 1 simple, 2 behavioural, 3 financial, 4 sensitive (special categories)."));
+    wrap.appendChild(helpLine(t("help.dpc")));
     wrap.appendChild(segmented(Object.keys(ENISA.dpc.base).map(function (k) {
-      var b = ENISA.dpc.base[k]; return { value: b.score, label: b.label.split(" (")[0] + " (" + b.score + ")", title: b.label };
+      var b = ENISA.dpc.base[k], lbl = t("enisa.dpc.base." + k, b.label); return { value: b.score, label: lbl.split(" (")[0] + " (" + b.score + ")", title: lbl };
     }), s.dpc, function (v) { s.dpc = v; recalc(); }));
 
     // EI - segmented buttons
     wrap.appendChild(el("h3", {}, [t("enisa.ei")]));
-    wrap.appendChild(helpLine("Ease of Identification: how easily the data identifies a person (multiplies DPC). 0.25 negligible to 1 maximum."));
+    wrap.appendChild(helpLine(t("help.ei")));
     wrap.appendChild(segmented(Object.keys(ENISA.ei.levels).map(function (k) {
-      var lv = ENISA.ei.levels[k]; return { value: lv.score, label: lv.label.split(" -")[0] + " (" + lv.score + ")", title: lv.label };
+      var lv = ENISA.ei.levels[k], lbl = t("enisa.ei.lvl." + k, lv.label); return { value: lv.score, label: lbl.split(" -")[0] + " (" + lv.score + ")", title: lbl };
     }), s.ei, function (v) { s.ei = v; recalc(); }));
 
     // CB graduated 0 / +0.25 / +0.5 per C/I/A (verbatim ENISA Annex 3) + malicious +0.5
     wrap.appendChild(el("h3", {}, [t("enisa.cb")]));
-    wrap.appendChild(helpLine("Circumstances of the Breach: added points for loss of confidentiality, integrity, availability (each 0 / +0.25 / +0.5) and malicious intent (+0.5)."));
+    wrap.appendChild(helpLine(t("help.cb")));
     Object.keys(ENISA.cb.graduated).forEach(function (k) {
       var g = ENISA.cb.graduated[k];
-      wrap.appendChild(el("label", { class: "seg-label" }, [g.label]));
-      wrap.appendChild(segmented(g.levels.map(function (lv) {
-        return { value: lv.points, label: "+" + lv.points, title: lv.label };
+      wrap.appendChild(el("label", { class: "seg-label" }, [t("enisa.cb." + k + ".label", g.label)]));
+      wrap.appendChild(segmented(g.levels.map(function (lv, i) {
+        return { value: lv.points, label: "+" + lv.points, title: t("enisa.cb." + k + ".lvl" + i, lv.label) };
       }), (s.cb[k] || 0), function (v) { s.cb[k] = v; recalc(); }));
     });
     // Malicious intent as a toggle button
-    wrap.appendChild(el("label", { class: "seg-label" }, [ENISA.cb.malicious_intent.label + " (+" + ENISA.cb.malicious_intent.points + ")"]));
-    wrap.appendChild(segmented([{ value: false, label: "No" }, { value: true, label: "Yes (+0.5)" }], !!s.cb.malicious, function (v) { s.cb.malicious = v; recalc(); }));
+    wrap.appendChild(el("label", { class: "seg-label" }, [t("enisa.cb.malicious", ENISA.cb.malicious_intent.label) + " (+" + ENISA.cb.malicious_intent.points + ")"]));
+    wrap.appendChild(segmented([{ value: false, label: t("common.no") }, { value: true, label: t("common.yes") + " (+0.5)" }], !!s.cb.malicious, function (v) { s.cb.malicious = v; recalc(); }));
 
     // Mitigating factors (P5) - editable toggle buttons; apply a one-time nudge to the
     // indicated variable (Art. 5: editable suggestion, the controller sees the change).
     if (ENISA.mitigating_factors) {
-      wrap.appendChild(el("h3", {}, ["Mitigating factors"]));
-      wrap.appendChild(helpLine(ENISA.mitigating_factors.note));
+      wrap.appendChild(el("h3", {}, [t("enisa.mititle", "Mitigating factors")]));
+      wrap.appendChild(helpLine(t("enisa.mit.note", ENISA.mitigating_factors.note)));
       ENISA.mitigating_factors.factors.forEach(function (m) {
         var row = el("div", { class: "mitigant" }, [
-          el("span", { class: "mit-label" }, [m.label, el("span", { class: "mit-tag" }, [" " + m.variable + " " + m.direction])]),
+          el("span", { class: "mit-label" }, [t("enisa.mit." + m.key, m.label), el("span", { class: "mit-tag" }, [" " + m.variable + " " + m.direction])]),
         ]);
-        row.appendChild(segmented([{ value: false, label: "Off" }, { value: true, label: "Apply" }], !!s.mitigants[m.key],
+        row.appendChild(segmented([{ value: false, label: t("mit.off", "Off") }, { value: true, label: t("mit.apply", "Apply") }], !!s.mitigants[m.key],
           function (v) { var was = !!s.mitigants[m.key]; s.mitigants[m.key] = v; if (v && !was) applyMitigant(m); activeTab = "enisa"; render(); }));
         wrap.appendChild(row);
       });
@@ -182,19 +187,19 @@
     }
 
     wrap.appendChild(result);
-    if (ENISA.provenance) wrap.appendChild(el("p", { class: "muted small prov" }, ["Provenance: " + ENISA.provenance]));
+    if (ENISA.provenance) wrap.appendChild(el("p", { class: "muted small prov" }, ["Provenance: " + t("enisa.provenance", ENISA.provenance)]));
     function recalc() {
       if (s.dpc == null || s.ei == null) {
-        result.innerHTML = ""; result.appendChild(el("div", { class: "muted small" }, ["Select DPC and EI to compute the severity."]));
+        result.innerHTML = ""; result.appendChild(el("div", { class: "muted small" }, [t("enisa.select_prompt", "Select DPC and EI to compute the severity.")]));
         return;
       }
       var r = computeSeverity(s.dpc, s.ei, s.cb);
       state.severity = r;
       result.innerHTML = "";
       result.appendChild(el("div", { class: "score" }, [t("enisa.result") + ": ", el("b", { class: "se-num" }, [String(r.se)]),
-        "  -  " + t("enisa.band") + ": ", el("b", { class: "band-" + r.band.key }, [r.band.label])]));
+        "  -  " + t("enisa.band") + ": ", el("b", { class: "band-" + r.band.key }, [t("enisa.band." + r.band.key, r.band.label)])]));
       result.appendChild(el("div", { class: "banner " + (r.notify ? "alert" : "info") }, [r.notify ? t("enisa.trigger_on") : t("enisa.trigger_off")]));
-      result.appendChild(el("div", { class: "muted small" }, [r.band.meaning]));
+      result.appendChild(el("div", { class: "muted small" }, [t("enisa.band." + r.band.key + ".meaning", r.band.meaning)]));
     }
     recalc();
     return wrap;
@@ -209,8 +214,8 @@
     if (state.severity) {
       var sevMap = { low: "a", medium: "b", high: "c", very_high: "c" };
       state.form["field_87"] = sevMap[state.severity.band.key] || state.form["field_87"];
-      state.form["field_90"] = "ENISA severity methodology: SE = DPC x EI + CB = " + state.severity.se +
-        " (" + state.severity.band.label + "). " + state.severity.band.meaning;
+      state.form["field_90"] = t("form.methodology_prefix", "ENISA severity methodology: SE = DPC x EI + CB = ") + state.severity.se +
+        " (" + t("enisa.band." + state.severity.band.key, state.severity.band.label) + "). " + t("enisa.band." + state.severity.band.key + ".meaning", state.severity.band.meaning);
     }
     var currentSection = null;
     DATA.fields.forEach(function (f) {
@@ -230,17 +235,17 @@
   function renderField(f) {
     var key = "field_" + f.id;
     var row = el("div", { class: "field" });
-    var labelText = f.label + (f.mandatory === "yes" ? " *" : "");
+    var labelText = fLabel(f) + (f.mandatory === "yes" ? " *" : "");
     var label = el("label", {}, [labelText]);
     if (f.gdpr_ref) label.appendChild(el("span", { class: "gdpr" }, [" [" + t("form.gdpr") + ": " + f.gdpr_ref + "]"]));
     row.appendChild(label);
-    if (f.tooltip) row.appendChild(el("div", { class: "tooltip muted small" }, [f.tooltip]));
+    if (f.tooltip) row.appendChild(el("div", { class: "tooltip muted small" }, [fTip(f)]));
     var ctl;
     if (f.type === "enum" && f.options.length) {
       ctl = el("select", { onchange: function (e) { state.form[key] = e.target.value; } });
-      ctl.appendChild(el("option", { value: "" }, ["--"]));
+      ctl.appendChild(el("option", { value: "" }, [t("common.option_dash", "--")]));
       f.options.forEach(function (o) {
-        var op = el("option", { value: o.key }, [o.key + ") " + o.label]);
+        var op = el("option", { value: o.key }, [o.key + ") " + oLabel(f.id, o.key, o.label)]);
         if (state.form[key] === o.key) op.selected = true;
         ctl.appendChild(op);
       });
@@ -254,7 +259,7 @@
             else state.form[key] = state.form[key].filter(function (x) { return x !== o.key; });
           } });
         if ((state.form[key] || []).indexOf(o.key) >= 0) cb.checked = true; // restore state on re-render
-        ctl.appendChild(el("span", { class: "opt" }, [cb, el("label", { for: key + "_" + o.key }, [o.key + ") " + o.label])]));
+        ctl.appendChild(el("span", { class: "opt" }, [cb, el("label", { for: key + "_" + o.key }, [o.key + ") " + oLabel(f.id, o.key, o.label)])]));
       });
     } else if (f.type === "textarea") {
       ctl = el("textarea", { rows: "2", oninput: function (e) { state.form[key] = e.target.value; } });
@@ -272,7 +277,10 @@
       ctl = el("input", { type: "text", oninput: function (e) { state.form[key] = e.target.value; } });
       if (state.form[key]) ctl.value = state.form[key];
     }
-    if (f.visible_if) row.appendChild(el("div", { class: "cond muted small" }, ["⤷ " + f.visible_if]));
+    // f.visible_if holds the EDPB template's raw English authoring notes (e.g.
+    // "implement only if required"); they are template-authoring metadata, not
+    // controller-facing guidance, so we do not surface them. Retained in data.js
+    // for future real conditional-visibility logic (roadmap, see fieldVisible).
     row.appendChild(ctl);
     return row;
   }
@@ -283,12 +291,13 @@
   function viewObligations() {
     var p = state.pre || {}, sev = state.severity, n = state.form || {};
     var card = el("div", { class: "card obligations" }, [
-      el("h3", {}, ["Your obligations for this breach"]),
-      el("p", { class: "muted small" }, ["Indicative guidance generated from the data you entered."]),
+      el("h3", {}, [t("obl.title", "Your obligations for this breach")]),
+      el("p", { class: "muted small" }, [t("obl.intro", "Indicative guidance generated from the data you entered.")]),
     ]);
     function item(state_, title, detail, ref) {
+      var badge = state_ === "yes" ? t("obl.badge.required", "Required") : state_ === "no" ? t("obl.badge.notreq", "Not required") : t("obl.badge.assess", "To assess");
       return el("div", { class: "obl " + state_ }, [
-        el("div", { class: "obl-head" }, [el("span", { class: "obl-badge " + state_ }, [state_ === "yes" ? "Required" : state_ === "no" ? "Not required" : "To assess"]),
+        el("div", { class: "obl-head" }, [el("span", { class: "obl-badge " + state_ }, [badge]),
           el("b", {}, [" " + title]), el("span", { class: "obl-ref muted small" }, ["  " + ref])]),
         el("div", { class: "muted small" }, [detail]),
       ]);
@@ -296,19 +305,15 @@
     // Art. 33 - notify the supervisory authority. Trigger is the Art. 33(1) risk test,
     // NOT the ENISA score (SE informs the assessment, it does not determine it).
     var notifyAuth = (p.risk === "yes") ? "yes" : (p.risk === "no" ? "no" : "assess");
-    card.appendChild(item(notifyAuth, "Notify the supervisory authority",
-      notifyAuth === "yes" ? "Required unless the breach is unlikely to result in a risk to the rights and freedoms of natural persons (Art. 33(1)). Deadline: without undue delay and, where feasible, within 72 hours of becoming aware."
-        : notifyAuth === "no" ? "Not required only if the breach is unlikely to result in a risk to the rights and freedoms (Art. 33(1)). Document the reasoning (Art. 33(5))."
-        : "Assess whether the breach is likely to result in a risk. The ENISA severity score informs this assessment but does not, on its own, determine the legal obligation.", "Art. 33(1)"));
+    card.appendChild(item(notifyAuth, t("obl.auth.title", "Notify the supervisory authority"),
+      notifyAuth === "yes" ? t("obl.auth.required") : notifyAuth === "no" ? t("obl.auth.notreq") : t("obl.auth.assess"), "Art. 33(1)"));
     // Art. 34 - communicate to data subjects
     var notifySubj = (p.highrisk === "yes") ? "yes" : (p.highrisk === "no" ? "no" : "assess");
-    card.appendChild(item(notifySubj, "Communicate to the affected individuals",
-      "Required only if the breach is likely to result in a HIGH risk to the rights and freedoms (Art. 34(1)), without undue delay. Exemptions (Art. 34(3)): (a) data unintelligible, e.g. strong encryption; (b) subsequent measures making the high risk no longer likely; (c) disproportionate effort -> public communication instead.", "Art. 34"));
+    card.appendChild(item(notifySubj, t("obl.subj.title", "Communicate to the affected individuals"), t("obl.subj.text"), "Art. 34"));
     // Art. 33(5) - internal documentation (always). 24 months is the recommended
     // retention on the Canadian model (paper Part III.5), NOT a GDPR period.
-    card.appendChild(item("yes", "Document the breach internally",
-      "Always required, for ALL breaches, including those not notified (Art. 33(5)). GDPR sets no retention period; a minimum of 24 months is recommended on the Canadian model (PIPEDA, SOR/2018-64), as proposed in the position paper (Part III.5).", "Art. 33(5)"));
-    card.appendChild(el("p", { class: "muted small disclaimer-note" }, ["This is indicative guidance generated from the data you entered; it is not legal advice and does not replace the controller's case-by-case assessment under Articles 33 and 34 GDPR. The controller remains responsible for the determination and for the values declared (accountability, Art. 5(2))."]));
+    card.appendChild(item("yes", t("obl.doc.title", "Document the breach internally"), t("obl.doc.text"), "Art. 33(5)"));
+    card.appendChild(el("p", { class: "muted small disclaimer-note" }, [t("obl.disclaimer")]));
     return card;
   }
 
@@ -326,9 +331,9 @@
     // PIPEDA-style minimum fields (6) + 24-month retention note
     var rk = DATA.record_keeping;
     state.record = state.record || {};
-    wrap.appendChild(el("p", { class: "muted small" }, ["Retention: " + rk.retention_months + " months. " + rk.retention_note]));
+    wrap.appendChild(el("p", { class: "muted small" }, [t("record.retention_prefix", "Retention") + ": " + rk.retention_months + " months. " + t("rk.retention_note", rk.retention_note)]));
     rk.minimum_fields.forEach(function (mf) {
-      var row = el("div", { class: "field" }, [el("label", {}, [mf.label])]);
+      var row = el("div", { class: "field" }, [el("label", {}, [t("rk." + mf.key, mf.label)])]);
       var ctl = mf.type === "textarea"
         ? el("textarea", { rows: "2", oninput: function (e) { state.record[mf.key] = e.target.value; } })
         : el("input", { type: "text", oninput: function (e) { state.record[mf.key] = e.target.value; } });
@@ -348,18 +353,18 @@
     else {
       var list = el("ul", { class: "records" });
       recs.forEach(function (r, i) {
-        var sev = r.severity ? (r.severity.band.label + " / SE " + r.severity.se) : "n/a";
+        var sev = r.severity ? (t("enisa.band." + r.severity.band.key, r.severity.band.label) + " / SE " + r.severity.se) : "n/a";
         list.appendChild(el("li", {}, ["#" + (i + 1) + " - " + r.saved_at + " - " + sev]));
       });
       wrap.appendChild(list);
       var bar = el("div", { class: "actions" }, [
-        el("button", { onclick: function () { downloadJSON(recs, "breach-record.json"); } }, ["Export JSON"]),
-        el("button", { onclick: function () { downloadText(registerCSV(recs), "breach-register.csv", "text/csv"); } }, ["Export CSV"]),
-        el("button", { onclick: function () { downloadText(registerXLS(recs), "breach-register.xls", "application/vnd.ms-excel"); } }, ["Export XLS"]),
-        el("button", { onclick: exportAggregate }, ["Export aggregate statistics (anonymised)"]),
+        el("button", { onclick: function () { downloadJSON(recs, "breach-record.json"); } }, [t("record.export", "Export record (JSON)")]),
+        el("button", { onclick: function () { downloadText(registerCSV(recs), "breach-register.csv", "text/csv"); } }, [t("btn.export_csv", "Export CSV")]),
+        el("button", { onclick: function () { downloadText(registerXLS(recs), "breach-register.xls", "application/vnd.ms-excel"); } }, [t("btn.export_xls", "Export XLS")]),
+        el("button", { onclick: exportAggregate }, [t("btn.export_aggregate", "Export aggregate statistics (anonymised)")]),
       ]);
       wrap.appendChild(bar);
-      wrap.appendChild(el("p", { class: "muted small" }, ["Aggregate export: anonymised counts by taxonomy, k-anonymity k=" + DATA.aggregate_transparency.k_default + " (small cells suppressed). No single-notification rows, no controller identity."]));
+      wrap.appendChild(el("p", { class: "muted small" }, [t("record.aggregate_note", "Aggregate export: anonymised counts by taxonomy, k-anonymity") + " k=" + DATA.aggregate_transparency.k_default + " " + t("record.aggregate_note2", "(small cells suppressed). No single-notification rows, no controller identity.")]));
     }
     container.appendChild(wrap);
     return container;
@@ -389,7 +394,7 @@
     var f = DATA.fields.find(function (x) { return x.id === fieldId; });
     if (!f || !key) return key || "";
     var o = (f.options || []).find(function (x) { return x.key === key; });
-    return o ? (key + ") " + o.label) : key;
+    return o ? (key + ") " + oLabel(fieldId, key, o.label)) : key;
   }
   // Array-safe label: handles single value or a multi-select array of keys.
   function optLabelAny(fieldId, val) {
@@ -551,7 +556,7 @@
     var nav = el("div", { class: "stepnav" });
     if (idx > 0) nav.appendChild(el("button", { onclick: function () { activeTab = order[idx - 1]; render(); window.scrollTo(0, 0); } }, ["← " + t("common.back")]));
     else nav.appendChild(el("span", {}));
-    nav.appendChild(el("span", { class: "stepcount muted small" }, ["Step " + (idx + 1) + " / " + order.length]));
+    nav.appendChild(el("span", { class: "stepcount muted small" }, [t("common.step", "Step") + " " + (idx + 1) + " / " + order.length]));
     if (idx < order.length - 1) nav.appendChild(el("button", { class: "primary", onclick: function () { activeTab = order[idx + 1]; render(); window.scrollTo(0, 0); } }, [t("common.next") + " →"]));
     else nav.appendChild(el("span", {}));
     root.appendChild(nav);
@@ -569,6 +574,7 @@
     var h = (location.hash || "").replace(/^#/, "");
     var params = {};
     h.split("&").forEach(function (kv) { var p = kv.split("="); if (p[0]) params[p[0]] = p[1]; });
+    if (params.lang && I18N[params.lang]) lang = params.lang;
     if (params.tab && ["pre", "enisa", "form", "record"].indexOf(params.tab) >= 0) activeTab = params.tab;
     if (params.demo === "1") {
       state.pre = { isbreach: "yes", personaldata: "yes", risk: "yes", highrisk: "yes" };
