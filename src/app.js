@@ -391,6 +391,11 @@
     var o = (f.options || []).find(function (x) { return x.key === key; });
     return o ? (key + ") " + o.label) : key;
   }
+  // Array-safe label: handles single value or a multi-select array of keys.
+  function optLabelAny(fieldId, val) {
+    if (Array.isArray(val)) return val.map(function (k) { return optLabel(fieldId, k); }).join("; ");
+    return optLabel(fieldId, val);
+  }
   function registerRow(r) {
     var n = r.notification || {}, mr = r.minimum_record || {}, sev = r.severity;
     var f97 = n.field_97; // communicated to data subjects
@@ -400,9 +405,9 @@
       reference: n.field_7 || "",
       date_period: n.field_44 ? optLabel(44, n.field_44) : (mr.date_or_period || ""),
       circumstances_cause: (mr.circumstances_cause || "") + (n.field_61 ? " | cause: " + optLabel(61, n.field_61) : ""),
-      nature_cia: n.field_55 ? optLabel(55, n.field_55) : "",
+      nature_cia: n.field_55 ? optLabelAny(55, n.field_55) : "",
       incident_type: n.field_60 ? optLabel(60, n.field_60) : "",
-      data_categories: mr.personal_information || (n.field_70 ? optLabel(70, n.field_70) : ""),
+      data_categories: mr.personal_information || (n.field_70 ? optLabelAny(70, n.field_70) : ""),
       numbers: mr.number_affected || n.field_68 || n.field_73 || "",
       risk_outcome: n.field_89 ? optLabel(89, n.field_89) : (sev && sev.notify ? "Risk -> notification path" : "No high risk"),
       methodology_enisa: sev ? ("ENISA SE = " + sev.se + " (" + sev.band.label + ")") : "",
@@ -457,7 +462,11 @@
   }
   function aggregateRecords(recs, k, period) {
     var dims = { incident_type: {}, cause: {}, nature_cia: {}, data_categories: {}, severity_band: {}, nace_sector: {}, data_subjects_range: {}, art34_communicated: {} };
-    function bump(map, key) { if (key == null || key === "") return; map[key] = (map[key] || 0) + 1; }
+    function bump(map, key) {
+      if (key == null || key === "") return;
+      if (Array.isArray(key)) { key.forEach(function (k) { bump(map, k); }); return; } // multi-select: count each value
+      map[key] = (map[key] || 0) + 1;
+    }
     recs.forEach(function (r) {
       var n = r.notification || {};
       bump(dims.incident_type, n.field_60);
@@ -567,7 +576,7 @@
       state.enisa = { dpc: 4, ei: 1.0, cb: demoCb };
       state.severity = computeSeverity(4, 1.0, demoCb);
       state.record = { circumstances_cause: "Ransomware exfiltration of customer database.", date_or_period: "2026-06-15", personal_information: "Names, emails, payment methods.", number_affected: "~12,000", mitigation_steps: "Isolated systems, rotated credentials, engaged IR firm.", notification_steps: "Email to affected individuals scheduled." };
-      state.form = { field_55: "a", field_60: "b", field_89: "a" };
+      state.form = { field_55: ["a"], field_60: "b", field_89: "a", field_70: ["a", "q"] };
       // Seed one saved record so the export bar (JSON/CSV/XLS) is demonstrable.
       try {
         if (!getRecords().length) {
