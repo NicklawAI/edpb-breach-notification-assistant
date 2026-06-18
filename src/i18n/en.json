@@ -486,5 +486,6 @@
   "mit.apply": "Apply",
   "common.step": "Step",
   "record.aggregate_note2": "(small cells suppressed). No single-notification rows, no controller identity.",
-  "form.methodology_prefix": "ENISA severity methodology: SE = DPC x EI + CB = "
+  "form.methodology_prefix": "ENISA severity methodology: SE = DPC x EI + CB = ",
+  "lang.provisional": "(provisional translation - native review pending)"
 }

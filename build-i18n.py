@@ -36,7 +36,13 @@ for path in sorted(i18n_dir.glob("*.json")):
     data = json.loads(path.read_text(encoding="utf-8"))
     translated = {k: v for k, v in data.items() if k != "_meta" and v is not None}
     covered = sum(1 for k in en_keys if k in translated)
-    status = "complete" if covered >= len(en_keys) else "partial"
+    declared = (data.get("_meta") or {}).get("status")
+    if covered >= len(en_keys):
+        # A language may opt into "provisional" (fully translated but the legal
+        # terminology is not yet verified against EUR-Lex / a native speaker).
+        status = "provisional" if declared == "provisional" else "complete"
+    else:
+        status = "partial"
     meta = {
         "lang": code,
         "name": NAMES.get(code, code),

@@ -487,5 +487,6 @@
   "mit.apply": "Applica",
   "common.step": "Passo",
   "record.aggregate_note2": "(celle di piccole dimensioni soppresse). Nessuna riga di notifica singola, nessuna identità del titolare del trattamento.",
-  "form.methodology_prefix": "Metodologia di gravità ENISA: SE = DPC x EI + CB = "
+  "form.methodology_prefix": "Metodologia di gravità ENISA: SE = DPC x EI + CB = ",
+  "lang.provisional": "(traduzione provvisoria - revisione madrelingua in corso)"
 }

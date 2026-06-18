@@ -529,7 +529,8 @@
     var sel = el("select", { class: "lang", onchange: function (e) { lang = e.target.value; render(); } });
     Object.keys(I18N).forEach(function (code) {
       var meta = I18N[code]._meta || {};
-      var label = (meta.name || code) + (meta.status === "complete" ? "" : " " + t("lang.incomplete"));
+      var mark = meta.status === "complete" ? "" : (meta.status === "provisional" ? " " + t("lang.provisional") : " " + t("lang.incomplete"));
+      var label = (meta.name || code) + mark;
       var o = el("option", { value: code }, [label]);
       if (code === lang) o.selected = true;
       sel.appendChild(o);
