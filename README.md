@@ -9,12 +9,22 @@
 
 ---
 
+## Start here
+
+For data protection professionals - a DPO, a lawyer, a supervisory authority. No installation, no technical knowledge required:
+
+1. **Try the tool.** Open the [**EDPB Breach Notification Assistant**](https://nicklawai.github.io/edpb-breach-notification-assistant/tool.html) in your browser and walk a breach through pre-assessment, ENISA severity, the EDPB notification and the breach register. It runs entirely on your device - breach data never leaves it. ([project page](https://nicklawai.github.io/edpb-breach-notification-assistant/))
+2. **Read the position paper.** [English](paper/position-paper.en.md) · [Italiano](paper/position-paper.it.md) (canonical: [EN Google Doc](https://docs.google.com/document/d/1j_EviybY26zvKFckELPB5nwFt1pk5HhGxEYK4EcUaQA)).
+3. **Add your name in support.** [Open an adhesion](../../issues/new?template=adhere.yml) - a short form (name, role, organisation, country). No git knowledge required.
+
+---
+
 ## We ship a reference implementation, not only a critique
 
 This repository contains **two things**:
 
 1. **The position paper** - [English](paper/position-paper.en.md) · [Italiano](paper/position-paper.it.md) · [canonical EN Google Doc](https://docs.google.com/document/d/1j_EviybY26zvKFckELPB5nwFt1pk5HhGxEYK4EcUaQA) · [20-proposal synthesis](paper/20-proposals.md)
-2. **A working open-source tool** - the the EDPB Breach Notification Assistant, a reference implementation of the paper's technical proposals (machine-readable schema, ENISA scoring, open API). Open [`dist/index.html`](dist/index.html) in any browser - it runs **offline**, no backend, breach data never leaves your device.
+2. **A working open-source tool** - the EDPB Breach Notification Assistant, a reference implementation of the paper's technical proposals (machine-readable schema, ENISA scoring, open API). **[Try it live in your browser](https://nicklawai.github.io/edpb-breach-notification-assistant/tool.html)** - it runs **offline**, no backend, breach data never leaves your device. (Prefer to run it locally? Download the repo and open [`dist/index.html`](dist/index.html).)
 
 ## The 20 proposals (synthesis)
 
@@ -29,6 +39,8 @@ The paper endorses the template's strengths and proposes 20 additive improvement
 Full list: [`paper/20-proposals.md`](paper/20-proposals.md).
 
 ## The reference tool
+
+**▶ [Open the tool in your browser](https://nicklawai.github.io/edpb-breach-notification-assistant/tool.html)** - no install, runs offline. ([project page](https://nicklawai.github.io/edpb-breach-notification-assistant/))
 
 | Component | What it does |
 |---|---|
