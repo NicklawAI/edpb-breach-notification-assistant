@@ -23,12 +23,12 @@ For data protection professionals - a DPO, a lawyer, a supervisory authority. No
 
 This repository contains **two things**:
 
-1. **The position paper** - [English](paper/position-paper.en.md) · [Italiano](paper/position-paper.it.md) · [canonical EN Google Doc](https://docs.google.com/document/d/1j_EviybY26zvKFckELPB5nwFt1pk5HhGxEYK4EcUaQA) · [20-proposal synthesis](paper/20-proposals.md)
+1. **The position paper** - [English](paper/position-paper.en.md) · [Italiano](paper/position-paper.it.md) · [canonical EN Google Doc](https://docs.google.com/document/d/1j_EviybY26zvKFckELPB5nwFt1pk5HhGxEYK4EcUaQA) · [proposal synthesis](paper/proposals.md)
 2. **A working open-source tool** - the EDPB Breach Notification Assistant, a reference implementation of the paper's technical proposals (machine-readable schema, ENISA scoring, open API). **[Try it live in your browser](https://nicklawai.github.io/edpb-breach-notification-assistant/tool.html)** - it runs **offline**, no backend, breach data never leaves your device. (Prefer to run it locally? Download the repo and open [`dist/index.html`](dist/index.html).)
 
-## The 20 proposals (synthesis)
+## The 21 proposals (synthesis)
 
-The paper endorses the template's strengths and proposes 20 additive improvements, drawn from a comparison with mature regimes (UK, Australia, California, Canada) and standards (ENISA, ISO/IEC 27035). Five headline recommendations:
+The paper endorses the template's strengths and proposes 21 additive improvements, drawn from a comparison with mature regimes (UK, Australia, California, Canada) and standards (ENISA, ISO/IEC 27035). Five headline recommendations:
 
 1. **Anchor severity to ENISA** and let it be **machine-computed** from structured inputs (DPC/EI/CB; SE ≥ 2 threshold).
 2. Add a guided **pre-assessment** and a simplified **SME track** to cut defensive over-notification.
@@ -36,7 +36,7 @@ The paper endorses the template's strengths and proposes 20 additive improvement
 4. Publish the template as a **machine-readable JSON Schema with a language-independent controlled vocabulary**, plus an optional secure **machine-to-machine channel** - implemented here.
 5. Design it **forward-compatibly** with the Digital Omnibus single entry point and the **NIS2/DORA staged timelines**.
 
-Full list: [`paper/20-proposals.md`](paper/20-proposals.md).
+Full list: [`paper/proposals.md`](paper/proposals.md).
 
 ## The reference tool
 

@@ -1,4 +1,4 @@
-# EDPB Breach-Notification Template - Position Paper: the 20 proposals
+# EDPB Breach-Notification Template - Position Paper: the 21 proposals
 
 A concise synthesis (title + one line each). Full reasoning and primary sources in the position paper.
 
@@ -30,3 +30,4 @@ A concise synthesis (title + one line each). Full reasoning and primary sources 
 18. **NIS2 / DORA staged-timeline mapping** [forward-looking] - Map the template's preliminary/complete/follow-up sub-types onto the NIS2 (24h/72h/1-month) and DORA staged regimes, for non-duplicative multi-regime reporting.
 19. **Machine-computable severity** - Allow severity to be computed from structured ENISA inputs (DPC / EI / CB) for cross-DPA comparability and EDPB-level analytics.
 20. **Multilingual stable vocabulary** - Maintain the controlled vocabulary centrally with stable, language-independent keys, so the transmitted value is identical across all EU languages.
+21. **Multi-value field cardinality** - Enable multiple-selection on the inherently multi-valued fields (the nature of the breach C/I/A, the categories of personal data and of data subjects, the likely consequences, and the measures in place or proposed), while keeping single-selection for the primary incident type to preserve taxonomy comparability. The reference implementation already represents these fields as arrays.
