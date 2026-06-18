@@ -14,15 +14,6 @@ Licenza: Questo position paper e gli artefatti tecnici di accompagnamento (JSON 
 
 Data: giugno 2026\. Stato: bozza per validazione interna prima della presentazione.
 
-Novità della v3 (delta rispetto alla v2) \- integrazione additiva:
-
-\* L'executive summary si apre ora con 5 raccomandazioni chiave \+ l'inquadramento "fornisce un'implementazione di riferimento, non solo una critica".  
-\* NUOVO: forward-compatibility con il single reporting entry point del Digital Omnibus (Parte IV.5) \- segnalato come proposta in corso di adozione (voto del Parlamento europeo a luglio 2026), non come norma vigente.  
-\* NUOVO: interoperabilità con la timeline scaglionata NIS2 (24h/72h/1 mese, corrispondenti a preliminare/completa/follow-up) nella Sezione II.6.  
-\* NUOVO: severità resa calcolabile automaticamente da input ENISA strutturati (Sezione I.4).  
-\* NUOVO: consistenza multilingue del vocabolario controllato con chiavi stabili (Parte IV.6).  
-\* Sintesi ampliata a 20 proposte.
-
 ## **Executive summary**
 
 Il template EDPB è un passo sostanziale verso l'armonizzazione delle notifiche di violazione ex articolo 33 GDPR nell'UE. Questo paper condivide i suoi punti di forza fondamentali \- una tassonomia comune di 25 tipi di incidente, una logica condizionale integrata e una sezione cross-border sviluppata \- e propone una serie di miglioramenti incrementali e additivi, tratti da un'analisi comparata di regimi di notifica maturi (Regno Unito, Australia, Singapore, USA, Canada) e di standard internazionali (ENISA, ISO/IEC 27035).
@@ -277,7 +268,8 @@ Proposta tecnica (Parte IV):
 17\. \[prospettico \- proposta non ancora adottata\] Progettare il template in modo forward-compatible con il single reporting entry point del Digital Omnibus (un'unica presentazione strutturata che serve NIS2/GDPR/DORA/eIDAS/CER). NB: il single reporting entry point è una proposta della Commissione europea (un proposto articolo 23a NIS2, 19 novembre 2025\) ancora in procedura legislativa ordinaria, con adozione attesa nel corso del 2026; qui inquadrata come anticipazione, non come norma vigente.  
 18\. \[prospettico\] Mappare i sotto-tipi preliminare/completa/follow-up del template sulla timeline scaglionata NIS2 (24h/72h/1 mese) per un reporting multi-regime non duplicativo.  
 19\. Consentire il calcolo di una banda di severità proposta a partire dagli input ENISA dichiarati dal titolare (DPC/EI/CB) \- un giudizio qualitativo del titolare, non una valutazione del rischio automatizzata \- per la comparabilità tra Autorità e le analisi EDPB.  
-20\. Mantenere il vocabolario controllato centralmente con chiavi stabili e indipendenti dalla lingua, per garantire la consistenza multilingue tra oltre 27 Autorità. 21\. Abilitare la cardinalità a selezione multipla (multi-valore) sui campi intrinsecamente multi-valore \- natura della violazione (C/I/A), categorie di dati personali e di interessati, conseguenze probabili e misure in essere/proposte \- mantenendo la selezione singola per il tipo di incidente primario per preservare la comparabilità della tassonomia. L'implementazione di riferimento rappresenta già questi campi come array.
+20\. Mantenere il vocabolario controllato centralmente con chiavi stabili e indipendenti dalla lingua, per garantire la consistenza multilingue tra oltre 27 Autorità.  
+21\. Abilitare la cardinalità a selezione multipla (multi-valore) sui campi intrinsecamente multi-valore \- natura della violazione (C/I/A), categorie di dati personali e di interessati, conseguenze probabili e misure in essere/proposte \- mantenendo la selezione singola per il tipo di incidente primario per preservare la comparabilità della tassonomia. L'implementazione di riferimento rappresenta già questi campi come array.
 
 ## **Parte VI \- Licenza e libera adozione**
 
