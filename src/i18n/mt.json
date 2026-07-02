@@ -94,6 +94,7 @@
   "f.24.label": "Deskrizzjoni tal-funzjoni tal-persuna li qed tirrapporta",
   "f.25.label": "Numru ta' identifikazzjoni nazzjonali",
   "f.26.label": "Akkuratezza u Responsabbiltà",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Hemm uffiċjal tal-protezzjoni tad-data nominat?",
   "f.30.label": "Isem tal-uffiċjal tal-protezzjoni tad-data",
   "f.31.label": "Dettalji ta' kuntatt*",

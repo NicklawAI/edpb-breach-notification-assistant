@@ -94,6 +94,7 @@
   "f.24.label": "Περιγραφή της ιδιότητας του προσώπου που υποβάλλει την αναφορά",
   "f.25.label": "Εθνικός αριθμός ταυτοποίησης",
   "f.26.label": "Ακρίβεια & Ευθύνη",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Έχει οριστεί υπεύθυνος προστασίας δεδομένων;",
   "f.30.label": "Όνομα του υπευθύνου προστασίας δεδομένων",
   "f.31.label": "Στοιχεία επικοινωνίας*",

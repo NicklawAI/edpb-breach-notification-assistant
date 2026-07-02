@@ -94,6 +94,7 @@
   "f.24.label": "Описание на длъжността на докладващото лице",
   "f.25.label": "Национален идентификационен номер",
   "f.26.label": "Точност и отговорност",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Определено ли е длъжностно лице по защита на данните?",
   "f.30.label": "Име на длъжностното лице по защита на данните",
   "f.31.label": "Данни за контакт*",

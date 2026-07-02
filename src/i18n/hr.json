@@ -94,6 +94,7 @@
   "f.24.label": "Opis funkcije osobe koja podnosi prijavu",
   "f.25.label": "Nacionalni identifikacijski broj",
   "f.26.label": "Točnost i odgovornost",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Je li imenovan službenik za zaštitu podataka?",
   "f.30.label": "Ime službenika za zaštitu podataka",
   "f.31.label": "Podaci za kontakt*",

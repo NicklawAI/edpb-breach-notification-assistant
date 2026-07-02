@@ -94,6 +94,7 @@
   "f.24.label": "Beschreibung der Funktion der meldenden Person",
   "f.25.label": "Nationale Identifikationsnummer",
   "f.26.label": "Richtigkeit und Verantwortung",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Ist ein Datenschutzbeauftragter benannt?",
   "f.30.label": "Name des Datenschutzbeauftragten",
   "f.31.label": "Kontaktangaben*",

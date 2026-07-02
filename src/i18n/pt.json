@@ -94,6 +94,7 @@
   "f.24.label": "Descrição da função da pessoa que apresenta a notificação",
   "f.25.label": "Número de identificação nacional",
   "f.26.label": "Exatidão e responsabilidade",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Foi designado um encarregado da proteção de dados?",
   "f.30.label": "Nome do encarregado da proteção de dados",
   "f.31.label": "Dados de contacto*",

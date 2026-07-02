@@ -94,6 +94,7 @@
   "f.24.label": "Teate esitaja funktsiooni kirjeldus",
   "f.25.label": "Riiklik isikukood",
   "f.26.label": "Õigsus ja vastutus",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Kas on määratud andmekaitseametnik?",
   "f.30.label": "Andmekaitseametniku nimi",
   "f.31.label": "Kontaktandmed*",

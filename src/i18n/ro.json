@@ -94,6 +94,7 @@
   "f.24.label": "Descrierea funcției persoanei care raportează",
   "f.25.label": "Numărul național de identificare",
   "f.26.label": "Exactitate și responsabilitate",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "A fost desemnat un responsabil cu protecția datelor?",
   "f.30.label": "Numele responsabilului cu protecția datelor",
   "f.31.label": "Date de contact*",

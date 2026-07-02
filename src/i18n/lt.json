@@ -94,6 +94,7 @@
   "f.24.label": "Pranešančio asmens pareigų aprašymas",
   "f.25.label": "Nacionalinis asmens identifikavimo numeris",
   "f.26.label": "Tikslumas ir atsakomybė",
+  "f.26.tip": "The reporting person submits the notification on behalf of the controller; responsibility for the accuracy and completeness of the information provided remains with the controller (Articles 24 and 33(1) GDPR).",
   "f.29.label": "Ar paskirtas duomenų apsaugos pareigūnas?",
   "f.30.label": "Duomenų apsaugos pareigūno vardas ir pavardė",
   "f.31.label": "Kontaktiniai duomenys*",
